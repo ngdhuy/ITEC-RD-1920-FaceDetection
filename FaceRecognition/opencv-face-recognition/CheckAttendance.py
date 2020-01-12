@@ -1,4 +1,5 @@
 import tkinter as tk
+
 from tkinter import filedialog,Text,Label,Entry,StringVar,messagebox,Checkbutton,Radiobutton,filedialog
 from tkinter import *
 import os
@@ -9,6 +10,7 @@ import sys
 
 
 root=tk.Tk()
+root.geometry("800x800")
 root.title("Face recognition")
 label1=Label(root,text="Face attendance checking system",font=("arial",16,"bold")).pack()
 
@@ -42,53 +44,21 @@ sn=StringVar()
 varGender=StringVar()
 sc=StringVar()
 
-def __init__(self,master):
-    self.master=master
-    self.master.geometry('250x200+100+200')
-    self.master.title('Records')
-    self.connection = mysql.connector.connect(host='localhost',
+def fetchdata():
+    connection = mysql.connector.connect(host='localhost',
 											database='facebase',
 											user='root',
 											password='123456')
-    self.cur = self.connection.cursor()
-    self.dateLabel = Label(self.master, text="Date", width=10)
-    self.dateLabel.grid(row=0, column=0)
-    self.BMILabel = Label(self.master, text="BMI", width=10)
-    self.BMILabel.grid(row=0, column=1)
-    self.stateLabel = Label(self.master, text="Status", width=10)
-    self.stateLabel.grid(row=0, column=2)
-    self.showallrecords()
-
-			 
-def readfromdatabase():
-	try:
-		connection = mysql.connector.connect(host='localhost',
-											database='facebase',
-											user='root',
-											password='123456')
-		if connection.is_connected():
-			db_Info = connection.get_server_info()
-			print("Connected to MySQL Server version ", db_Info)
-			cursor = connection.cursor()
-			cursor.execute("SELECT * FROM Students")
-			print(cursor.fetchall())
-		
-			connection.commit()
-	except Error as e:
-		print("Error while connecting to MySQL", e)
-	finally:
-		if (connection.is_connected()):
-			cursor.close()
-			connection.close()
-			print("MySQL connection is closed")
-
-def showallrecords(self):
-    data = self.readfromdatabase()
-    for index, dat in enumerate(data):
-        Label(self.master, text=dat[0]).grid(row=index+1, column=0)
-        Label(self.master, text=dat[1]).grid(row=index+1, column=1)
-        Label(self.master, text=dat[2]).grid(row=index+1, column=2)
-
+    cursor=connection.cursor()
+    cursor.execute("SELECT name FROM Students")
+    list0=cursor.fetchall()
+    cursor.close()
+    connection.close()
+    output=''
+    for x in list0:
+        output = output+x[0]+'\n'
+    query=Label(root,text=output,font="30")
+    query.place(x=450,y=300)
 def signUp():
     studentid=sid.get()
     studentname=sn.get()
@@ -115,66 +85,62 @@ def signUp():
 def takePhoto():
     filename = filedialog.askdirectory()  
     os.system('python build_face_dataset.py --cascade haarcascade_frontalface_default.xml --output ' + filename)
-canvas=tk.Canvas(root,height=600,width=500,bg="#263D42")
-canvas.pack()
+canvas=tk.Canvas(root,height=800,width=5,bg='gray39')
+canvas.place(x=400,y=40)
 
 frame=tk.Frame(root,bg="white")
 # frame.place(relwidth=0.8,relheight=0.2 ,relx=0.1,rely=0.1)
 
+def checkAttendance():
+    os.system('python recognize_video.py --detector face_detection_model --embedding-model openface_nn4.small2.v1.t7 --recognizer output/recognizer.pickle --le output/le.pickle' )
+
+
 image=Image.open("D:\RND-Facecognition-DEEPLEARNING\opencv-face-recognition\image.jpg")
 photo=ImageTk.PhotoImage(image)
 
-label_0=Label(root,text="CLASS", width=40)
-label_0.place(x=100,y=280)
-
-label_1=Label(root,text="Student name :", width=20)
-label_1.place(x=100,y=320)
+showStudents=tk.Button(root,text="Show all students",relief="solid",width=20,font=("arial",16,"bold"),command=fetchdata)
+showStudents.place(x=50,y=300)
 
 
-label_2=Label(root,text="Student gender :", width=20)
-label_2.place(x=100,y=360)
+showStudents=tk.Button(root,text="Show all students",relief="solid",width=20,font=("arial",16,"bold"),command=fetchdata)
+showStudents.place(x=50,y=380)
 
-label_3=Label(root,text="Student class :", width=20)
-label_3.place(x=100,y=400)
-
-
-entry=Entry(root,textvar=sid,width=30)
-entry.place(x=260,y=280)
+checkAttendance=tk.Button(root,text="Check attendance",relief="solid",width=20,font=("arial",16,"bold"),command=checkAttendance)
+checkAttendance.place(x=50,y=460)
 
 
-entry=Entry(root,textvar=sn,width=30)
-entry.place(x=260,y=320)
-
-r1=Radiobutton(root,text="Male",variable=varGender,value="Male").place(x=260,y=360)
-r2=Radiobutton(root,text="Female",variable=varGender,value="Female").place(x=320,y=360)
+label_0=Label(root,text="CLASS", width=20)
+# label_0.place(x=100,y=500)
 
 
-entry=Entry(root,textvar=sc,width=30)
-entry.place(x=260,y=400)
 
 
-label=Label(image=photo,height=200,width=400)
-label.place(x=50,y=50)
+
+
+
+
+
+
+label=Label(image=photo,height=200,width=700)
+label.place(x=30,y=35)
 
 signUp=tk.Button(root,text="Sign up",relief="solid",width=20,font=("arial",16,"bold"),command=signUp)
-signUp.place(x=120,y=460)
+# signUp.place(x=120,y=460)
 
-takePhoto=tk.Button(root,text="Take photo",relief="solid",width=20,font=("arial",16,"bold"),command=readfromdatabase)
-takePhoto.place(x=120,y=520)
 
 
 
 openFile=tk.Button(root,text="Open file",padx=10,pady=5,fg="white",bg="#263D42" ,command=addApp)
 
-openFile.pack()
+# openFile.pack()
 
 runApps=tk.Button(root,text="Run app",padx=10,pady=5,fg="white",bg="#263D42" ,command=runApps)
 
-runApps.pack()
+# runApps.pack()
 
 for app in apps:
     label=tk.Label(frame,text=app)
-    label.pack()
+    # label.pack()
 
 root.mainloop()
 
