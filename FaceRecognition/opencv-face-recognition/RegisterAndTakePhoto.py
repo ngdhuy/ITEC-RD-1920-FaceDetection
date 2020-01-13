@@ -110,7 +110,7 @@ canvas.pack()
 frame=tk.Frame(root,bg="white")
 # frame.place(relwidth=0.8,relheight=0.2 ,relx=0.1,rely=0.1)
 
-image=Image.open("D:\RND-Facecognition-DEEPLEARNING\opencv-face-recognition\image.jpg")
+image=Image.open("/Users/huyit/Projects/ITEC-RD-1920-FaceDetection/FaceRecognition/opencv-face-recognition/image.jpg")
 photo=ImageTk.PhotoImage(image)
 
 label_0=Label(root,text="Student ID :", width=20)
