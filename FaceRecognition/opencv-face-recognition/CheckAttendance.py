@@ -98,7 +98,7 @@ def checkAttendance():
 image=Image.open("D:\RND-Facecognition-DEEPLEARNING\opencv-face-recognition\image.jpg")
 photo=ImageTk.PhotoImage(image)
 
-showStudents=tk.Button(root,text="Show all students",relief="solid",width=20,font=("arial",16,"bold"),command=fetchdata)
+showStudents=tk.Button(root,text="Select class",relief="solid",width=20,font=("arial",16,"bold"),command=fetchdata)
 showStudents.place(x=50,y=300)
 
 
