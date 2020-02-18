@@ -1,0 +1,10 @@
+_Tạo mới react project bằng lệnh:
+npx create-react-app my-app
+_Điều hướng vào folder react:
+cd my-app
+_Tải framework css dùng trong project . Ở đây mình dùng material-ui:
+yarn add @material-ui/core
+_Tải gói icon của framework
+yarn add @material-ui/icons
+_Copy file LogIn.js vào src
+_xem trong file index.js trong folder rồi thêm vào file index.js trong project.
