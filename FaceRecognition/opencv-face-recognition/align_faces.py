@@ -25,7 +25,7 @@ args = vars(ap.parse_args())
 # the facial landmark predictor and the face aligner
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(args["shape_predictor"])
-fa = FaceAligner(predictor, desiredFaceWidth=256)
+fa = FaceAligner(predictor, desiredFaceWidth=182)
 
 
 imagePaths = list(paths.list_images(args["dataset"]))

@@ -95,15 +95,24 @@ def signUp():
         print ("Creation of the directory %s failed" % path)
     else:
         print ("Successfully created the directory %s " % path)    
-
-    os.system('python build_face_dataset.py --cascade haarcascade_frontalface_default.xml --output dataset/'+studentnameFinale)
-
+    
+    os.system('python build_face_dataset.py --cascade haarcascade_frontalface_default.xml --output dataset/'+studentnameFinale) 
+    
+    os.mkdir("D:/RND-Facecognition-DEEPLEARNING/opencv-face-recognition/alignedDataset/" +studentnameFinale)
+    os.system('python align_faces.py --shape-predictor shape_predictor_68_face_landmarks.dat --output alignedDataset '+studentnameFinale+' --dataset ' + studentnameFinale)
+    os.system('python extract_embeddings.py --dataset alignedDataset --embeddings output/embeddings.pickle --detector face_detection_model --embedding-model openface_nn4.small2.v1.t7')
+    os.system('python train_model.py --embeddings output/embeddings.pickle --recognizer output/recognizer.pickle --le output/le.pickle')
     tk.messagebox.showinfo("Welcome","Student create sucessfully")
 
 
 def takePhoto():
-    filename = filedialog.askdirectory()  
-    os.system('python build_face_dataset.py --cascade haarcascade_frontalface_default.xml --output ' + filename)
+    filename = filedialog.askdirectory()
+    print(os.path.basename(filename))
+    os.system('python build_face_dataset.py --cascade haarcascade_frontalface_default.xml --output ' +filename)
+    os.mkdir("D:/RND-Facecognition-DEEPLEARNING/opencv-face-recognition/alignedDataset/" +os.path.basename(filename))
+    os.system('python align_faces.py --shape-predictor shape_predictor_68_face_landmarks.dat --output alignedDataset/'+os.path.basename(filename)+' --dataset ' + filename)
+    os.system('python extract_embeddings.py --dataset alignedDataset --embeddings output/embeddings.pickle --detector face_detection_model --embedding-model openface_nn4.small2.v1.t7')
+    os.system('python train_model.py --embeddings output/embeddings.pickle --recognizer output/recognizer.pickle --le output/le.pickle')
 canvas=tk.Canvas(root,height=600,width=500,bg="#263D42")
 canvas.pack()
 
