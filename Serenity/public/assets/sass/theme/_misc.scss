@@ -1,0 +1,71 @@
+body {
+    .p-draggable-dragging.p-default {
+        padding: $headerPadding !important;
+        background-color: $primaryColor;
+    }
+
+    .jqplot-target {
+        font-family: "Roboto","Helvetica Neue",sans-serif;
+    }
+
+    .p-progressbar {
+        @include content();
+        @include corner-all();
+        height: 1.5em;
+        padding: 0;
+        overflow: hidden;
+        border-color: $contentBorderColor;
+
+        .p-progressbar-value {
+            @include header();
+            @include corner-all();
+            height: 1.5em;
+            border: 1px solid $primaryColor;
+        }
+
+        .p-progressbar-label {
+            color: #ffffff;
+            display: none !important;
+        }
+    }
+
+    .p-progressbar-indeterminate {
+        .p-progressbar-value {
+            background-color: $primaryLightColor;
+            &::before {
+                background-color: $primaryColor;
+            }
+        }
+    }
+
+    .p-galleria {
+        padding: 0;
+
+        .p-galleria-nav-prev {
+            left: 0;
+            margin-bottom: -.4em;
+        }
+
+        .p-galleria-nav-next {
+            right: 0;
+            margin-bottom: -.4em;
+        }
+    }
+
+    .p-inplace {
+        .p-inplace-display {
+            @include transition(background-color$transitionDuration);
+            @include border-radius(3px);
+
+            &:hover {
+                background-color: $hoverBgColor;
+            }
+        }
+    }
+
+    .p-terminal {
+        .p-terminal-input {
+            font-size: $fontSize;
+        }
+    }
+}

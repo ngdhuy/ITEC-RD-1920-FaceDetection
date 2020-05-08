@@ -1,0 +1,26 @@
+.docs h1 {
+    font-weight: 400;
+    font-size: 24px;
+}
+
+.docs pre {
+    font-family: monospace;
+    background-color: #323e4b;
+    color: #ffffff;
+    padding: 1em;
+    font-size: 14px;
+    border-radius: 3px;
+}
+
+.docs i {
+    background-color: #fcf2a7;
+    font-family: monaco,Consolas,Lucida Console,monospace;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 14px;
+    padding: 2px;
+}
+
+.docs li {
+    line-height: 1.5;
+}

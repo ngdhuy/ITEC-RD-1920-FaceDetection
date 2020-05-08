@@ -1,0 +1,256 @@
+@media (max-width: $mobileBreakpoint) {
+    .layout-wrapper {
+        .layout-sidebar {
+            left: -240px;
+
+            .sidebar-logo {
+                .sidebar-anchor {
+                    display: none !important;
+                }
+            }
+        }
+
+        .layout-main {
+            margin-left: 0;
+            left: 0;
+            @include transition(left $transitionDuration);
+            -webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+            transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+
+            .layout-topbar {
+                width: 100%;
+                @include clearfix();
+                text-align: center;
+                padding: 16px 24px;
+
+                .menu-btn {
+                    display: inline-block;
+                }
+
+                .topbar-menu-btn {
+                    display: inline-block;
+                }
+
+                .topbar-logo {
+                    display: none;
+                }
+
+                .mobile-logo {
+                    display: inline;
+                }
+
+                .layout-topbar-menu-wrapper {
+
+                    .topbar-menu {
+                        display: none;
+                        -webkit-animation-duration: .5s;
+                        -moz-animation-duration: .5s;
+                        animation-duration: .5s;
+                        text-align: left;
+                        @include overlay-shadow();
+
+                        &:before {
+                            width: 0;
+                            height: 0;
+                            border-left: 8px solid transparent;
+                            border-right: 8px solid transparent;
+                            border-bottom: 15px solid $primaryColor;
+                            content: " ";
+                            position: absolute;
+                            top: -15px;
+                            left: 232px;
+                       }
+
+                        &.topbar-menu-active {
+                            position: fixed;
+                            top: 75px;
+                            right: 30px;
+                            width: 250px;
+                            display: block;
+                            padding: 8px 0;
+                            background-color: $topbarMobileMenuBgColor;
+                            border-top: 4px solid $primaryColor;
+
+                            > li {
+                                float: none;
+                                display: block;
+                                margin: 0;
+
+                                > button {
+                                    padding: 8px 14px;
+                                    display: block;
+                                    color: $textColor;
+
+                                    &:hover {
+                                        background-color: $hoverBgColor;
+                                        
+                                        i {
+                                            color: $textColor;
+                                        }
+                                    }
+
+                                    i {
+                                        color: $textSecondaryColor;
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                        margin-right: 8px;
+                                    }
+
+                                    .topbar-item-name {
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                    }
+
+                                    .topbar-badge {
+                                        position: static;
+                                        float: right;
+                                        margin-top: 4px;
+                                    }
+                                }
+
+                                > ul {
+                                    position: static;
+                                    @include no-shadow();
+                                    padding: 0;
+                                    width: 100%;
+                                    border-top: 0 none;
+                                    @include box-sizing(border-box);
+
+                                    &:before {
+                                        display: none;
+                                    }
+
+                                    button {
+                                        padding-left: 28px;
+                                    }
+                                }
+
+                                &.profile-item {
+                                    img {
+                                        width: 24px;
+                                        height: 24px;
+                                    }
+                                }
+                            }
+                        }
+
+                        li {
+                            button {
+                                font-size: $fontSize;
+
+                                i {
+                                    font-size: 24px;
+                                }
+                            }
+
+                            &.search-item {
+                                input {
+                                    background-image: linear-gradient(to bottom, $primaryColor, $primaryColor), linear-gradient(to bottom, desaturate(lighten($primaryColor,25%), 25%), desaturate(lighten($primaryColor,25%), 25%));
+                                }
+                            }
+
+                            &.search-item {
+                                padding: 8px 14px;
+
+                                input {
+                                    padding: 2px;
+                                    border-width: 0;
+                                    color: $textColor;
+                                    margin-left: 28px;
+                                    width: 85%;
+
+                                    &:focus {
+                                        border-width: 0;
+                                        width: 85%;
+
+                                        ~ i {
+                                            color: $primaryColor;
+                                        }
+
+                                        ~ label {
+                                            color: $primaryColor;
+                                            top: -15px;
+                                        }
+                                    }
+                                }
+
+                                i {
+                                    color: $textSecondaryColor;
+                                    right: auto;
+                                    left: 0px;
+                                }
+
+                                label {
+                                    color: $textSecondaryColor;
+                                    left: 32px;
+                                    margin-top: 0;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        &.layout-wrapper-active {
+            overflow: hidden;
+
+            .layout-sidebar {
+                left: 0;
+                @include no-shadow();
+                
+                .layout-menu {
+                    li {
+                        a {
+                            i.layout-submenu-toggler {
+                                display: inline-block;
+                            }
+
+                            .menuitem-badge {
+                                display: inline-block;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .layout-main {
+                position: fixed;
+                left: 240px;
+                width: calc(100%);
+                @include shadow(inset 3px 0px 6px 1px rgba(0, 0, 0, 0.3));
+                
+                .layout-topbar {
+                    @include shadow(inset 3px 0px 6px 1px rgba(0, 0, 0, 0.3));
+                }
+                
+                .layout-breadcrumb {
+                    @include shadow(inset 3px 0px 6px 1px rgba(0, 0, 0, 0.3));
+                    
+                    .layout-breadcrumb-options {
+                        display: none;
+                    }
+                }
+            }
+
+            .layout-main-mask {
+                z-index: 999998;
+                position: absolute;
+                left: 0;
+                top: 0;
+                background-color: $overlayMaskBgColor;
+                display: block;
+                @include opacity(.5);
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+        }
+    }
+
+    body {
+        &.hidden-overflow {
+            overflow: hidden;
+        }
+    }
+}

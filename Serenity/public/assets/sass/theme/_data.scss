@@ -1,0 +1,1079 @@
+@charset "UTF-8";
+body {
+    .p-picklist {
+        .p-picklist-caption {
+            @include header();
+            padding: $headerPadding;
+        }
+
+        .p-picklist-list {
+            @include content();
+            @include corner-bottom();
+            padding: 0;
+        }
+
+        li.p-picklist-item {
+            padding: $listItemPadding;
+            margin: 0;
+            @include border-radius(0);
+            color: $textColor;
+
+            &:not(.p-highlight):hover {
+                @include hover-element();
+            }
+
+            &.p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+            }
+        }
+
+        .p-picklist-buttons {
+            .p-button {
+                margin: 0 auto 0.571em auto;
+
+                &.p-button-icon-only {
+                    width: 2.5em;
+                    height: 2.5em;
+                }
+            }
+        }
+
+        .p-picklist-buttons-cell {
+            text-align: center;
+        }
+
+        &.p-picklist-responsive {
+            .p-picklist-buttons {
+                width: 3.429em;
+
+                .p-button {
+                    &.p-button-icon-only {
+                        margin: 0 auto;
+                        display: block;
+                        margin-bottom: 0.571em;
+
+                    }
+                }
+            }
+
+            .p-picklist-list {
+                .p-picklist-item {
+                    .p-checkbox {
+                        margin-right: 0.571em;
+                        vertical-align: top;
+
+                    }
+                    .p-checkbox, .p-checkbox * {
+                        box-sizing: content-box;
+
+                    }
+                }
+            }
+        }
+    }
+
+    .p-organizationchart {
+        .p-organizationchart-node-content {
+            @include content();
+            @include corner-all();
+
+            &.p-organizationchart-selectable-node:not(.p-highlight):hover {
+                @include hover-element();
+            }
+
+            &.p-highlight {
+                .p-node-toggler {
+                    i {
+                        color: darken($accentColor, 25%);
+                    }
+                }
+            }
+        }
+        .p-organizationchart-line-down {
+            background-color: darken($contentBorderColor, 10%);
+        }
+
+        .p-organizationchart-line-left {
+            border-right: 1px solid darken($contentBorderColor, 10%);
+        }
+
+        .p-organizationchart-line-right {
+
+        }
+
+        .p-organizationchart-line-top {
+            border-top: 1px solid darken($contentBorderColor, 10%);
+        }
+
+        .p-organizationchart-node-content {
+            border-color: darken($contentBorderColor, 10%);
+        }
+
+        .p-organizationchart-node-content .p-node-toggler {
+            bottom: -1.143em;
+            margin-left: -.825em;
+            color: darken($contentBorderColor, 10%);
+
+            .pi-chevron-down {
+                @include material-icon("keyboard_arrow_down");
+            }
+
+            .pi-chevron-up {
+                @include material-icon("keyboard_arrow_up");
+            }
+        }
+    }
+
+    .p-orderlist {
+        .p-orderlist-caption {
+            @include header();
+            padding: $headerPadding;
+            @include border-box-sizing();
+        }
+
+        .p-orderlist-list {
+            @include content();
+            @include corner-bottom();
+            padding: 0;
+            box-sizing: border-box;
+
+            li.p-orderlist-item {
+                padding: $listItemPadding;
+                margin: 0;
+                @include border-radius(0);
+                color: $textColor;
+
+                &:not(.p-highlight):hover {
+                    @include hover-element();
+                }
+
+                &.p-highlight {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+                }
+            }
+        }
+
+        &.p-orderlist-responsive {
+            .p-orderlist-controls {
+                width: 4.286em;
+            }
+        }
+
+        .p-orderlist-controls {
+            width: 4.286em;
+            text-align: center;
+
+            .p-button {
+                &.p-button-icon-only {
+                    width: 2.5em;
+                    height: 2.5em;
+                    margin: 0 auto 0.571em auto;
+                }
+            }
+        }
+    }
+
+    .p-paginator {
+        @include header();
+        background-color: $primaryDarkColor;
+        padding: $paginatorPadding;
+
+        > button {
+            box-sizing: border-box;
+            color: #ffffff;
+
+            .pi {
+                display: none;
+            }
+
+            &:not(.p-disabled):not(.p-highlight):hover {
+                background-color: $primaryLightColor;
+                @include border-radius(50%);
+                @include transition(background-color $transitionDuration);
+            }
+        }
+
+        .p-paginator-next {
+            padding: 0;
+            vertical-align: middle;
+            @include material-icon("navigate_next");
+        }
+
+        .p-paginator-last {
+            padding: 0;
+            vertical-align: middle;
+            @include material-icon("last_page");
+        }
+
+        .p-paginator-prev {
+            padding: 0;
+            vertical-align: middle;
+            @include material-icon("navigate_before");
+        }
+
+        .p-paginator-first {
+            padding: 0;
+            vertical-align: middle;
+            @include material-icon("first_page");
+        }
+
+        .p-paginator-first,
+        .p-paginator-prev,
+        .p-paginator-next,
+        .p-paginator-last {
+            min-width: 1.200em;
+            width: 1.200em;
+            height: 1.200em;
+            line-height: 1.2;
+        }
+
+        .p-paginator-pages {
+            vertical-align: middle;
+            margin: 0 6px 0 12px;
+            padding: 0;
+
+            .p-paginator-page {
+                padding: 0;
+                color: $headerTextColor;
+                width: 1.714em;
+                height: 1.714em;
+                line-height: 1.714em;
+                font-size: 1em;
+                margin-left: .071em;
+                margin-right: .071em;
+                @include border-radius(50%);
+                @include transition(background-color$transitionDuration);
+
+                &:not(.p-highlight):hover {
+                    background-color: $primaryLightColor;
+                }
+
+                &.p-highlight {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+                }
+            }
+        }
+    }
+
+    .p-dataview {
+        .p-dataview-header {
+            background-color: #ffffff;
+            color: $textColor;
+            padding: $headerPadding;
+            border: 1px solid $dividerColor;
+            border-bottom: 0 none;
+
+            .p-inputtext {
+                width: auto;
+            }
+
+            .p-button {
+                border-radius: 50%;
+
+                &.p-highlight {
+                    &:hover {
+                        background-color: $accentColor;
+                        color: $accentTextColor;
+                    }
+                }
+            }
+        }
+
+        .p-dataview-content {
+            background-color: $contentBgColor;
+            color: $textColor;
+            border: 1px solid $contentBorderColor;
+
+            > .p-grid {
+                margin-right: 0;
+                margin-left: 0;
+                margin-top: 0;
+            }
+
+            > .p-grid > div {
+                border-bottom: 1px solid $dividerColor;
+
+                &:last-child {
+                    border-bottom: 0 none;
+                }
+            }
+        }
+
+        .p-dataview-footer {
+            background-color: #ffffff;
+            color: $textColor;
+            padding: $headerPadding;
+            border: 1px solid $dividerColor;
+            border-top: 0 none;
+        }
+
+        .p-dataview-layout-options {
+            button:first-child {
+                margin-right: .5em;
+            }
+        }
+    }
+
+    .p-datagrid {
+        .p-datagrid-header {
+            padding: $headerPadding;
+        }
+
+        .p-panel {
+            .p-panel-titlebar {
+                background-color: #ffffff;
+                color: $textColor;
+            }
+        }
+    }
+
+    .p-datalist {
+        .p-datalist-header {
+            padding: $headerPadding;
+        }
+    }
+
+    .p-datascroller {
+        .p-datascroller-header {
+            @include header();
+            border-bottom: 0 none;
+            padding: $headerPadding;
+        }
+
+        .p-datascroller-content {
+            @include content();
+        }
+
+        .p-datascroller-footer {
+            @include header();
+            border-top: 0 none;
+            padding: $headerPadding;
+        }
+    }
+
+    .p-datatable {
+        .p-datatable-header,
+        .p-datatable-footer {
+            @include header();
+            padding: $headerPadding;
+            text-align: center;
+            font-weight: normal;
+
+            .p-inputtext {
+                color: $accentTextColor;
+
+                &:focus {
+                    border-color: $accentTextColor;
+                }
+            }
+        }
+
+        .p-datatable-header {
+            border-bottom: 0 none;
+        }
+
+        .p-datatable-footer {
+            border-top: 0 none;
+        }
+
+        .p-datatable-thead > tr > th {
+            padding: $dataTableHeaderPadding;
+            border: 0 none;
+            text-align: left;
+            font-weight: $headerFontWeight;
+            border-top: 1px solid $contentBorderColor;
+            background-color: #ffffff;
+
+            &:first-child {
+                border-left: 1px solid $contentBorderColor;
+            }
+
+            &:last-child {
+                border-right: 1px solid $contentBorderColor;
+            }
+
+            .p-column-resizer {
+                @include material-icon("\e86f");
+                color: $textSecondaryColor;
+            }
+        }
+
+        .p-datatable-tfoot > tr > td {
+            padding: $dataTableHeaderPadding;
+            border: 0 none;
+            background-color: $contentBgColor;
+            text-align: left;
+            font-weight: $headerFontWeight;
+
+            &:first-child {
+                border-left: 1px solid $contentBorderColor;
+            }
+
+            &:last-child {
+                border-right: 1px solid $contentBorderColor;
+            }
+        }
+
+        .p-column-filter {
+            width: 100%;
+        }
+
+        .p-sortable-column {
+            color: $textColor;
+
+            .p-sortable-column-icon {
+                vertical-align: middle;
+                color: $textSecondaryColor;
+                margin: 0 0 0 4px;
+            }
+
+            &:not(.p-highlight):hover {
+                @include hover-element();
+            }
+
+            &.p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+                border-top-color: $accentColor;
+
+                .p-sortable-column-icon {
+                    color: $accentTextColor;
+                }
+            }
+
+            .p-column-title {
+                vertical-align: middle;
+            }
+        }
+
+        .p-datatable-tbody {
+            @include content();
+
+            > tr {
+                background: $contentBgColor;
+                border: 1px solid $contentBorderColor;
+
+                > td {
+                    background: inherit;
+                    padding: $dataTableCellPadding;
+                    border: 0 none;
+                }
+
+                &.p-highlight {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+                }
+
+                &.p-contextmenu-selected {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+                }
+
+                .p-editing-cell {
+                    input {
+                        color: $accentTextColor;
+                    }
+                }
+            }
+
+            > tr:nth-child(even) {
+                background-color: $dataTableRowBgColorEven;
+
+                &.p-highlight {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+                }
+
+                &.p-contextmenu-selected {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+                }
+            }
+        }
+
+        &.p-datatable-hoverable-rows {
+            .p-datatable-tbody > tr:not(.p-highlight):not(.p-highlight-contextmenu):hover {
+                cursor: pointer;
+                @include hover-element();
+            }
+        }
+
+        .p-column-resizer-helper {
+            @include header();
+        }
+
+
+        .p-datatable-scrollable-wrapper {
+            .p-datatable-scrollable-header, .p-datatable-scrollable-footer {
+                @include header();
+                border: 0 none;
+                background-color: transparent;
+                padding: 0px;
+            }
+
+            thead {
+                tr {
+                    th {
+                        color: $textColor;
+                    }
+                }
+            }
+
+            tfoot {
+                tr {
+                    td {
+                        color: $textColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-tree {
+        @include content();
+        @include corner-all();
+        padding: $contentPadding;
+
+        .p-tree-container {
+            .p-treenode {
+                .p-treenode-content {
+                    padding: $listItemPadding;
+                    padding-left: 0;
+                    padding-right: 0;
+                    display: inline-block;
+
+                    .p-checkbox {
+                        margin: 0 .25em;
+
+                        .p-checkbox-box.p-highlight {
+                            border-color: #757575;
+                            background-color: transparent;
+
+                            &:before {
+                                -webkit-animation: none;
+                                animation: none;
+                            }
+                        }
+
+                        .pi {
+                            color: #757575;
+                        }
+                    }
+
+                    .p-tree-toggler {
+                        vertical-align: middle;
+                    }
+
+                    .p-treenode-icon {
+                        vertical-align: middle;
+                        margin: 0 0.286em 0 0.286em;
+                    }
+
+                    .p-treenode-label {
+                        @include border-radius($borderRadius);
+                        padding: 0 0.286em 0 0.286em;
+                        margin: 0;
+                        vertical-align: middle;
+                    }
+
+                    &.p-highlight {
+                        background-color: inherit;
+                        color: inherit;
+
+                        .p-tree-toggler-icon,
+                        .p-treenode-icon {
+                            color: $textColor;
+                        }
+
+                        .p-treenode-label {
+                            background-color: $accentColor;
+                            color: $accentTextColor;
+                        }
+                    }
+
+                    &.p-highlight-contextmenu {
+                        cursor: pointer;
+                        border: 1px dashed $accentColor;
+                    }
+
+                    &.p-treenode-selectable:not(.p-highlight):hover {
+                        .p-treenode-label:not(.p-highlight):hover {
+                            @include hover-element();
+                        }
+                    }
+
+                    &.p-treenode-dragover {
+                        background: $primaryLightColor;
+
+                        > span {
+                            color: $primaryTextColor;
+                        }
+                    }
+                }
+            }
+
+            .p-treenode-droppoint {
+                &.p-treenode-droppoint-active {
+                    background-color: $accentColor;
+                }
+            }
+        }
+    }
+
+    .p-tree-draghelper {
+        border: 1px solid $primaryColor;
+    }
+
+    .fc {
+        .fc-button {
+            background-color: $primaryColor;
+            color: $buttonTextColor;
+            font-family: $fontFamily;
+            height: 2.25em;
+            padding: 0 1em;
+            border: 0 none;
+
+            &:enabled:not(:focus):not(.fc-button-active):hover {
+                background-color: $primaryDarkColor;
+            }
+
+            &:enabled:not(.fc-button-active):focus {
+                outline: 0 none;
+                background-color: lighten($primaryColor,10%);
+                box-shadow: none;
+            }
+
+            &.fc-button-active {
+                background-color: $accentColor;
+                color: $accentTextColor;
+                &:focus {
+                    box-shadow: none;
+                }
+            }
+        }
+
+        .fc-head {
+            th {
+                border-color: $primaryColor;
+            }
+
+            .fc-row {
+                background-color: $primaryColor;
+                color: $headerTextColor;
+                border: 1px solid $primaryColor;
+                padding: $headerPadding;
+                font-weight: $headerFontWeight;
+            }
+        }
+
+        td.fc-today {
+            background-color: $accentColor;
+            color: $accentTextColor;
+        }
+        .fc-toolbar {
+            .fc-icon-chevron-right {
+                font-family: 'Material Icons' !important;
+                @include material-icon("play_circle_outline");
+                text-indent: 0;
+                position: relative;
+                top: 1px;
+            }
+
+            .fc-icon-chevron-left {
+                font-family: 'Material Icons' !important;
+                @include material-icon("play_circle_outline");
+                @include rotate(180deg);
+                text-indent: 0;
+                position: relative;
+                top: 1px;
+            }
+
+            .ui-state-active {
+                background-color: $accentColor;
+                color: $accentTextColor;
+            }
+        }
+
+        .fc-event {
+            background-color: $primaryLightColor;
+            color: $primaryTextColor;
+        }
+
+        table {
+            box-sizing: border-box;
+        }
+
+        div.ui-widget-content {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+
+    .p-treetable {
+        .p-treetable-header,
+        .p-treetable-footer {
+            @include header();
+            padding: $headerPadding;
+        }
+
+        .p-treetable-header {
+            border-bottom: 0 none;
+        }
+
+        .p-treetable-footer {
+            border-top: 0 none;
+        }
+
+        .p-treetable-thead > tr > th,
+        .p-treetable-tbody > tr > td,
+        .p-treetable-tfoot > tr > td {
+            padding: $dataTableHeaderPadding;
+        }
+
+        .p-treetable-thead > tr > th,
+        .p-treetable-tfoot > tr > td {
+            font-weight: $headerFontWeight;
+            background-color: #ffffff;
+            border: 0 none;
+        }
+
+        .p-treetable-thead tr .p-inputtext {
+            width: 100%;
+        }
+
+        .p-treetable-thead > tr > th {
+            padding: $dataTableHeaderPadding;
+            border: 0 none;
+            text-align: left;
+            font-weight: $headerFontWeight;
+            border-top: 1px solid $contentBorderColor;
+            background-color: #ffffff;
+
+            &:first-child {
+                border-left: 1px solid $contentBorderColor;
+            }
+
+            &:last-child {
+                border-right: 1px solid $contentBorderColor;
+            }
+
+            .p-column-resizer {
+                @include material-icon("\e86f");
+                color: $textSecondaryColor;
+            }
+
+            &.p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+                border-top-color: $accentColor;
+
+                .#{$iconPrefix} {
+                    color: $accentTextColor;
+                }
+
+                .p-inputtext {
+                    color: $accentTextColor;
+
+                    &:focus {
+                        border-color: $accentTextColor;
+                    }
+                }
+            }
+        }
+
+        .p-treetable-tfoot > tr > td {
+            padding: $dataTableHeaderPadding;
+            border: 0 none;
+            background-color: $contentBgColor;
+            text-align: left;
+            font-weight: $headerFontWeight;
+
+            &:first-child {
+                border-left: 1px solid $contentBorderColor;
+            }
+
+            &:last-child {
+                border-right: 1px solid $contentBorderColor;
+            }
+        }
+
+        .p-treetable-scrollable-header {
+            border: none;
+        }
+
+        .p-treetable-loading-content {
+            .pi-spin {
+                -webkit-animation: 2s linear infinite spin;
+                animation: 2s linear infinite spin;
+                color: #ffffff;
+            }
+        }
+
+        .p-sortable-column {
+            color: $textColor;
+
+            .p-sortable-column-icon {
+                vertical-align: middle;
+                margin: 0 0 0 4px;
+                color: $textSecondaryColor;
+            }
+
+            &:not(.p-highlight):hover {
+                @include hover-element();
+            }
+
+            &.p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+                border-top-color: $accentColor;
+
+                .p-sortable-column-icon {
+                    color: $accentTextColor;
+                }
+            }
+
+            .p-column-title {
+                vertical-align: middle;
+            }
+        }
+
+        .p-treetable-tbody {
+            > tr {
+                @include content();
+                background: $contentBgColor;
+                border: 1px solid $contentBorderColor;
+
+                > td {
+                    padding: $dataTableCellPadding;
+                    border: 0 none;
+
+                    .p-treetable-toggler {
+                        color: $textSecondaryColor;
+                        .pi.pi-chevron-right {
+                            vertical-align: middle;
+                        }
+                        .pi.pi-chevron-down {
+                            vertical-align: middle;
+                        }
+                    }
+
+                    .p-treetable-checkbox {
+                        margin-right: .75em;
+                        margin-top: 2px;
+
+                        .p-checkbox-box.p-highlight {
+                            &:before {
+                                -webkit-animation: none;
+                                animation: none;
+                            }
+                        }
+                    }
+                }
+
+                &.p-highlight {
+                    background-color: $accentColor;
+                    color: $accentTextColor;
+
+                    > td {
+                        background: inherit;
+                        border: $dividerColor;
+
+                        .p-treetable-toggler {
+                            color: $accentTextColor;
+                        }
+                    }
+
+                    .p-checkbox {
+                        .p-checkbox-box {
+                            border-color: $accentTextColor;
+                            background: transparent;
+
+                            .p-checkbox-icon {
+                                color: $accentTextColor;
+                            }
+                        }
+                    }
+                }
+
+                &.p-highlight-contextmenu {
+                    background-color: lighten($accentColor, 25%);
+                    color: $accentTextColor;
+
+                    > td {
+                        background: inherit;
+                        border: $dividerColor;
+
+                        .p-treetable-toggler {
+                            color: $accentTextColor;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.p-treetable-hoverable-rows {
+            .p-treetable-tbody > tr:not(.p-highlight):not(.p-highlight-contextmenu):hover {
+                cursor: pointer;
+                @include hover-element();
+
+                .p-treetable-toggler {
+                    color: $hoverTextColor;
+                }
+            }
+        }
+
+        .p-column-resizer-helper {
+            @include header();
+        }
+
+        .p-treetable-scrollable-wrapper {
+            .p-treetable-scrollable-header,
+            .p-treetable-scrollable-footer {
+                @include header();
+                border: 0 none;
+                background-color: transparent;
+                padding: 0px;
+            }
+
+            thead {
+                tr {
+                    th {
+                        background-color: #ffffff;
+                        color: $textColor;
+                        border-bottom: 1px solid $dividerColor;
+                        border-top: 1px solid $dividerColor;
+
+                        &.p-highlight {
+                            background-color: $accentColor;
+                            color: $accentTextColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .p-carousel {
+        .p-carousel-content {
+            .p-carousel-prev,
+            .p-carousel-next {
+                background-color: $carouselNavButtonsBgColor;
+                border: $carouselNavButtonsBorder;
+                @include border-radius($carouselNavButtonsBorderRadius);
+                margin: $carouselNavButtonsMargin;
+                color: $carouselNavButtonsColor;
+                @include transition($carouselNavButtonsTransition);
+                height: 2.5em;
+                padding: 0;
+
+                span {
+                    color: $textColor;
+                    font-size: 26px;
+                    vertical-align: middle;
+                }
+
+                &:not(.p-disabled) {
+                    &:hover {
+                        background-color: $carouselNavButtonsHoverBgColor;
+                        color: $carouselNavButtonsHoverColor;
+                        border-color: $carouselNavButtonsHoverBorderColor;
+                    }
+                }
+            }
+        }
+
+        .p-carousel-dots-container {
+            .p-carousel-dot-item {
+                .p-carousel-dot-icon {
+                    width: $carouselDotIconWidth;
+                    height: $carouselDotIconHeight;
+                    background-color: $carouselDotIconBgColor;
+                    margin: $carouselDotIconMargin;
+
+                    &::before {
+                        content: ' ';
+                    }
+                }
+
+                &.p-highlight {
+                    background-color: #ffffff;
+
+                    .p-carousel-dot-icon {
+                        background-color: $carouselActiveDotIconBgColor;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 40em) {
+    body {
+        .p-orderlist {
+            &.p-orderlist-responsive {
+                .p-orderlist-controls {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        .p-picklist {
+            &.p-picklist-responsive {
+                .p-picklist-list-wrapper {
+                    margin-bottom: .5em;
+                }
+
+                .p-picklist-buttons {
+                    padding: .5em 0;
+
+                    .p-button {
+                        &.p-button-icon-only {
+                            display: inline-block;
+                            margin-right: .25em;
+                            margin-bottom: 0;
+                        }
+                    }
+
+                    .pi-angle-right {
+                        @include icon-override("play_arrow");
+                        @include rotate(90deg);
+                    }
+                    .pi-angle-double-right {
+                        @include icon-override("skip_previous");
+                        @include rotate(-90deg);
+
+                    }
+                    .pi-angle-left {
+                        @include icon-override("play_arrow");
+                        @include rotate(-90deg);
+                    }
+                    .pi-angle-double-left {
+                        @include icon-override("skip_next");
+                        @include rotate(-90deg);
+                    }
+                }
+            }
+        }
+
+        .p-orderlist {
+            &.p-grid-responsive {
+                .p-orderlist-controls {
+                    text-align: center;
+                    width: auto;
+
+                    .p-button {
+                        margin-right: .25em;
+                    }
+                }
+            }
+
+        }
+    }
+}

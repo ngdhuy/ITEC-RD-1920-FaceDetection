@@ -1,0 +1,86 @@
+@mixin flex() {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.datatable-demo {
+	.p-datatable-responsive .p-datatable-tbody>tr.p-datatable-row>td:last-child .p-column-title {
+		display: none;
+	}
+}
+
+.carousel-demo {
+	.p-carousel {
+		.p-carousel-content {
+			.p-carousel-item {
+				.car-details {
+					> .p-grid {
+						border-radius: 3px;
+						margin: .3em;
+						text-align: center;
+						padding: 2em 0 2.25em 0;
+					}
+				}
+
+				.car-data {
+					.car-title {
+						font-weight: 700;
+						font-size: 20px;
+						margin-top: 24px;
+					}
+
+					.car-subtitle {
+						margin: .25em 0 2em 0;
+					}
+
+					button {
+						margin-left: .5em;
+
+						&:first-child {
+							margin-left: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.dataview-demo {
+	.p-dataview {
+		.car-details {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding: 2em;
+
+			& > div {
+				display: flex;
+				align-items: center;
+
+				img {
+					margin-right: 14px;
+				}
+			}
+		}
+
+		.car-detail {
+			padding: 0 1em 1em 1em;
+			margin: 1em;
+		}
+	}
+}
+
+@media (max-width: 1024px) {
+	.dataview-demo {
+		.p-dataview {
+			.car-details {
+
+				img {
+					width: 75px;
+				}
+			}
+		}
+	}
+}

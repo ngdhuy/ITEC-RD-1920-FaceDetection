@@ -1,0 +1,341 @@
+body {
+    .p-panel {
+        padding: 0;
+        @include content();
+        @include corner-all();
+
+        .p-panel-titlebar {
+            @include header();
+            border: 0 none;
+            padding: $headerPadding;
+            @include border-radius-top(2px);
+            @include border-radius-bottom(0);
+
+            .p-panel-title {
+                margin: 0;
+                line-height: $panelContentLineHeight;
+            }
+
+            .p-panel-titlebar-icon {
+                position: relative;
+                width: 1.5em;
+                height: 1.5em;
+                line-height: 1.5em;
+                text-align: center;
+                color: $headerTextColor;
+                margin: 0;
+                @include transition(background-color $transitionDuration);
+                @include border-radius(50%);
+
+                &:hover {
+                    background-color: $primaryLightColor;
+                }
+            }
+        }
+
+        .p-panel-content {
+            height: 100%;
+            box-sizing: border-box;
+            padding: $contentPadding;
+            line-height: $panelContentLineHeight;
+        }
+
+        .p-panel-footer {
+            padding: $headerPadding;
+            border: 0 none;
+            border-top: 1px solid $dividerColor;
+            margin: 0;
+        }
+    }
+
+    .p-fieldset {
+        @include content();
+        @include corner-all();
+        padding: $contentPadding;
+
+        .p-fieldset-legend {
+            @include corner-all();
+            padding: $headerPadding;
+            padding-left: 2px;
+            padding-right: 8px;
+            color: $primaryColor;
+
+            .p-fieldset-toggler {
+                width: 2em;
+                height: 2em;
+                padding: .5em;
+                background-color: $primaryColor;
+                color: #ffffff;
+                font-size: 1.5em;
+                @include border-radius(50%);
+                @include transition(background-color $transitionDuration);
+                margin-top: -10px;
+                margin-right: 8px;
+                @include content-shadow();
+                @include rippleitem();
+
+                &:hover {
+                    background-color: $primaryDarkColor;
+                }
+            }
+
+            a {
+                &:focus {
+                    background-color: transparent;
+                    outline: 0;
+                }
+            }
+
+            .p-fieldset-legend-text {
+                color: $primaryColor;
+            }
+        }
+    }
+
+    .p-accordion {
+        .p-accordion-header {
+            margin-top: .25em;
+            background-color: $accordionHeaderBgColor;
+            color: $accordionHeaderTextColor;
+            font-weight: $headerFontWeight;
+            @include border-radius($borderRadius);
+            @include transition(background-color $transitionDuration);
+
+            > a {
+                padding: $headerPadding;
+                color: $accordionHeaderTextColor;
+                @include border-radius($borderRadius);
+
+                .p-accordion-toggle-icon,
+                .p-accordion-header-text {
+                    vertical-align: middle;
+                    color: $primaryTextColor;
+                }
+            }
+
+            &:not(.p-highlight):not(.p-disabled):hover {
+                a {
+                    background-color: $accordionHeaderHoverBgColor;
+                    color: $accordionHeaderHoverTextColor;
+
+                    .p-accordion-toggle-icon {
+                        color: $accordionHeaderHoverTextColor;
+                    }
+                }
+            }
+
+            &:not(.p-disabled).p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+                @include border-radius-bottom(0);
+
+                > a {
+                    color: $accentTextColor;
+                }
+
+                .p-accordion-toggle-icon {
+                    color: $accentTextColor;
+                }
+            }
+        }
+
+        .p-accordion-content {
+            @include content();
+            padding: $contentPadding;
+            line-height: $panelContentLineHeight;
+            margin-top: 0;
+            @include border-radius-bottom($borderRadius);
+        }
+    }
+
+    .p-toolbar {
+        @include header();
+        background-color: $primaryDarkColor;
+        @include content-shadow();
+        padding: 10px;
+
+        .p-toolbar-separator {
+            margin-right: 0.25em;
+        }
+    }
+
+    .p-tabview {
+        @include content();
+        @include corner-all();
+        padding: 0;
+        border: 0 none;
+
+        .p-tabview-nav {
+            @include header();
+            background-color: #ffffff;
+            border: 0 none;
+            @include border-radius(0);
+
+            > li {
+                padding: 0;
+                overflow: hidden;
+                @include transition(border-color $transitionDuration);
+
+                > a {
+                    cursor: pointer;
+                    padding: $headerPadding;
+                    color: $textSecondaryColor;
+
+                    &:focus {
+                        outline: 0 none;
+                    }
+                }
+
+                > .pi-times {
+                    margin: .5em 0 0 0;
+                    @include transition(color $transitionDuration);
+                    color: $textSecondaryColor;
+                }
+
+                &.p-default {
+                    a {
+                        color: $textSecondaryColor;
+                    }
+                }
+
+                &:not(.p-highlight):not(.p-disabled):hover {
+                    background-color: #ffffff;
+                }
+
+                &.p-highlight {
+                    background-color: transparent;
+                    border-color: $accentColor;
+                    border-style: solid;
+
+                    a,
+                    .p-tabview-left-icon,
+                    .p-tabview-right-icon  {
+                        color: $primaryColor;
+                    }
+
+                    .p-tabview-title {
+                        font-weight: 700;
+                    }
+
+                    > .pi-times {
+                        color: $primaryColor;
+                    }
+                }
+
+                &.p-tabview-outline {
+                    outline: 0 none;
+                    border-color: $primaryLightColor;
+                }
+
+                .p-tabview-left-icon, .p-tabview-right-icon {
+                    color: $textSecondaryColor;
+                    display: inline-block;
+                    vertical-align: middle;
+                    font-size: $iconFontSize;
+                }
+
+                .p-tabview-title {
+                    line-height: 1.5em;
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .p-tabview-panel {
+            padding: $contentPadding;
+            line-height: $panelContentLineHeight;
+        }
+
+        &.p-tabview-top {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-top(4px);
+                border-bottom: 1px solid $dividerColor;
+
+                > li {
+                    border-style: solid;
+                    border-width: 0 0 2px 0;
+                }
+            }
+        }
+
+        &.p-tabview-bottom {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-bottom(4px);
+                border-top: 1px solid $dividerColor;
+
+                > li {
+                    border-width: 2px 0 0 0;
+                }
+            }
+        }
+
+        &.p-tabview-left {
+            > .p-tabview-nav {
+                padding: 0;
+                margin: 0;
+                @include border-radius-left($borderRadius + 1);
+                border-right: 1px solid $dividerColor;
+
+                > li {
+                    box-sizing: border-box;
+                    border-width: 0 2px 0 0;
+
+                    > a {
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+        }
+
+        &.p-tabview-right {
+            > .p-tabview-nav {
+                padding: 0;
+                @include border-radius-right($borderRadius + 1);
+                border-left: 1px solid $dividerColor;
+
+                > li {
+                    box-sizing: border-box;
+                    border-width: 0 0 0 2px;
+
+                    > a {
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+
+                    &.p-highlight {
+                        > a {
+                            padding-left: 0.875em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .p-card {
+        @include content();
+        @include corner-all();
+        @include overlay-content-shadow();
+    }
+
+    .p-scrollpanel {
+        @include content();
+        @include corner-all();
+    }
+
+}
+
+@media (max-width: 640px) {
+    body {
+        .p-toolbar {
+            .p-toolbar-group-right {
+                margin-top: 1em;
+            }
+        }
+    }
+}

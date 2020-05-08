@@ -1,0 +1,93 @@
+* {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    letter-spacing: $letterSpacing;
+
+    .p-component {
+        font-family: $fontFamily;
+        text-decoration: none;
+    }
+
+    .p-widget-content {
+        background-color: $contentBgColor;
+        font-size: $contentFontSize;
+        border: 1px solid $dividerColor;
+
+        .pi {
+            color: $contentIconColor;
+        }
+    }
+
+    .p-widget-header {
+        background-color: $headerBgColor;
+        color: $headerTextColor;
+        font-size: $headerFontSize;
+        border: 1px solid $primaryColor;
+
+        .pi {
+            color: $headerIconColor;
+        }
+    }
+
+    .p-highlight {
+        background-color: $accentColor;
+        color: $accentTextColor;
+
+        .pi {
+            color: $accentTextColor;
+        }
+    }
+
+    .p-component:disabled,
+    .p-disabled {
+        opacity: .35;
+        filter: Alpha(Opacity=35);
+        background-image: none;
+        cursor: auto !important;
+    }
+
+    .p-component-overlay {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    a {
+        color: $primaryColor;
+        text-decoration: none;
+    }
+
+    .material-icons {
+        font-family: 'Material Icons';
+        font-weight: normal;
+        font-style: normal;
+        font-size: $iconFontSize;
+        display: inline-block;
+        width: 1em;
+        height: 1em;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+
+        /* Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: 'liga';
+    }
+
+    .p-link {
+        background: transparent;
+        background-color: transparent;
+    }
+}

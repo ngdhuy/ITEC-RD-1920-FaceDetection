@@ -1,0 +1,640 @@
+body {
+    .p-breadcrumb {
+        @include header();
+        @include corner-all();
+
+        a {
+            color: #ffffff;
+        }
+
+        li:first-child {
+            a {
+                position: relative;
+                margin-top: 0;
+
+                span {
+                    font-size: $iconFontSize;
+                }
+            }
+        }
+
+        .p-breadcrumb-chevron {
+            margin: 0;
+            font-size: $iconFontSize;
+        }
+
+        li {
+            margin: 0;
+        }
+
+    }
+
+    .p-steps {
+        position: relative;
+
+        .p-steps-item {
+            background-color: transparent;
+
+            &.p-disabled {
+                @include opacity(1);
+            }
+
+            .p-menuitem-link {
+                display: inline-block;
+                text-align: left;
+                background-color: #ffffff;
+                overflow: hidden;
+
+                .p-steps-number {
+                    display: inline-block;
+                    background-color: #757575;
+                    @include border-radius(50%);
+                    font-size: 16px;
+                    color: #ffffff;
+                    vertical-align: middle;
+                    text-align: center;
+                    width: 2em;
+                    height: 2em;
+                    padding: 0;
+                    line-height: 2em;
+                }
+
+                .p-steps-title {
+                    display: inline;
+                    margin-left: .714em;
+                    color: $textSecondaryColor;
+                }
+            }
+
+            &.p-highlight {
+                .p-steps-number {
+                    background-color: $primaryColor;
+                }
+
+                .p-steps-title {
+                    font-weight: 700;
+                    color: $textColor;
+                }
+            }
+
+            &:last-child {
+                .p-menuitem-link {
+                    display: block;
+                }
+            }
+        }
+
+        &:before {
+            content:' ';
+            border: 1px solid $dividerColor;
+            width: 90%;
+            top: 45%;
+            left: 0;
+            display: block;
+            position: absolute;
+        }
+    }
+
+    .p-menu .p-menuitem-link,
+    .p-menubar .p-menuitem-link,
+    .p-tieredmenu .p-menuitem-link,
+    .p-contextmenu .p-menuitem-link,
+    .p-megamenu .p-menuitem-link,
+    .p-slidemenu .p-menuitem-link {
+        padding: $menuitemPadding;
+        color: $textColor;
+        min-height: 2.286em;
+        @include border-radius(0);
+
+        .p-menuitem-text {
+            vertical-align: middle;
+        }
+
+        .p-menuitem-icon {
+            font-size: 18px;
+            color: $textSecondaryColor;
+        }
+
+        &:hover {
+            @include hover-element();
+
+            .p-menuitem-text {
+                color: $hoverTextColor;
+            }
+
+            .p-menuitem-icon {
+                color: $hoverTextColor;
+            }
+        }
+
+        &:focus {
+            @include hover-element();
+
+            .p-menuitem-text {
+                color: $hoverTextColor;
+            }
+
+            .p-menuitem-icon {
+                color: $hoverTextColor;
+            }
+        }
+
+        .p-submenu-icon {
+            right: .857em;
+            margin-right: -.5em;
+        }
+    }
+
+    .p-menubar, .p-contextmenu,
+    .p-slidemenu, .p-tieredmenu {
+        .p-submenu-list {
+            padding: .5em 0;
+
+            .p-menuitem {
+                margin: 0;
+            }
+        }
+    }
+
+    .p-menu {
+        @include content();
+        @include corner-all();
+        min-width: 12.5em;
+        padding: $menuListPadding;
+
+        .p-shadow, &.p-shadow {
+            @include overlay-input-shadow();
+        }
+
+        .p-menuitem {
+            margin: 0;
+            @include border-radius(0);
+
+            .p-menuitem-link {
+                .p-menuitem-icon {
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        &.p-menu-overlay {
+            @include content();
+            @include overlay-input-shadow();
+        }
+
+        .p-submenu-header {
+            @include header();
+            border: 0 none;
+            border-radius: 0;
+            margin: 0;
+            padding: $menuitemPadding;
+            font-weight: 400;
+        }
+
+        .p-menu-separator {
+            height: 1px;
+            background-color: $dividerColor;
+            width: 100%;
+            box-sizing: border-box;
+        }
+    }
+
+    .p-menubar {
+        @include content();
+        @include corner-all();
+        padding: 0;
+
+        .p-menubar-root-list {
+            > .p-menuitem {
+                > .p-menuitem-link {
+                    padding: $menuitemPadding;
+                }
+            }
+        }
+
+        .p-submenu-list {
+            @include content();
+            @include corner-all();
+            padding: .5em 0;
+            @include overlay-input-shadow();
+
+            .p-menuitem {
+                margin: 0;
+            }
+
+            .p-menuitem-link {
+                .p-submenu-icon {
+                    right: .857em;
+                    margin-right: -.5em;
+                }
+            }
+
+            .p-menu-separator {
+                border: solid $dividerColor;
+                border-width: 1px 0 0 0;
+            }
+        }
+
+        .p-menuitem {
+            margin: 0;
+
+            &.p-menuitem-active {
+                > .p-menuitem-link {
+                    @include hover-element();
+
+                    .p-menuitem-text {
+                        color: $hoverTextColor;
+                    }
+
+                    .p-menuitem-icon {
+                        color: $hoverTextColor;
+                    }
+                }
+            }
+        }
+    }
+
+    .p-contextmenu {
+        @include content();
+        @include corner-all();
+        @include border-radius($borderRadius);
+        @include overlay-input-shadow();
+        padding: .5em 0;
+
+        .p-submenu-list {
+            @include content();
+            @include corner-all();
+            padding: .5em 0;
+            @include overlay-input-shadow();
+        }
+
+        .p-menuitem {
+            margin: 0;
+
+            &.p-menuitem-active {
+                > .p-menuitem-link {
+                    @include hover-element();
+
+                    .p-menuitem-text {
+                        color: $hoverTextColor;
+                    }
+
+                    .p-menuitem-icon {
+                        color: $hoverTextColor;
+                    }
+                }
+            }
+        }
+
+        .p-menu-separator {
+            border: solid $dividerColor;
+            border-width: 1px 0 0 0;
+        }
+    }
+
+    .p-tieredmenu {
+        @include content();
+        @include corner-all();
+        @include border-radius($borderRadius);
+        padding: .5em 0;
+
+        .p-submenu-list {
+            @include content();
+            @include corner-all();
+            padding: .5em 0;
+            @include overlay-input-shadow();
+        }
+
+        .p-menuitem {
+            margin: 0;
+
+            &.p-menuitem-active {
+                > .p-menuitem-link {
+                    @include hover-element();
+
+                    .p-menuitem-text {
+                        color: $hoverTextColor;
+                    }
+
+                    .p-menuitem-icon {
+                        color: $hoverTextColor;
+                    }
+                }
+            }
+        }
+
+        .p-menu-separator {
+            border: solid $dividerColor;
+            border-width: 1px 0 0 0;
+        }
+
+        &.p-menu-overlay {
+            @include content();
+            @include overlay-input-shadow();
+        }
+    }
+
+    .p-slidemenu {
+        @include content();
+        @include corner-all();
+        padding: .5em 0;
+        @include border-radius($borderRadius);
+
+        .p-submenu-list {
+            @include content();
+            @include corner-all();
+            padding: .5em 0;
+            border: 0 none;
+        }
+
+        .p-menuitem {
+            margin: 0;
+
+            &.p-menuitem-active {
+                > .p-menuitem-link {
+                    @include hover-element();
+
+                    .p-menuitem-text {
+                        color: $hoverTextColor;
+                    }
+
+                    .p-menuitem-icon {
+                        color: $hoverTextColor;
+                    }
+                }
+            }
+        }
+
+        .p-slidemenu-backward {
+            margin-bottom: .4em;
+            padding: $headerPadding;
+            width: 100%;
+            background-color: $primaryColor;
+            color: $primaryTextColor;
+            box-sizing: border-box;
+            @include border-radius(0);
+            border: 0 none;
+
+            &:hover {
+                background-color: darken($primaryColor, 10%);
+            }
+        }
+
+        .p-menu-separator {
+            border: solid $dividerColor;
+            border-width: 1px 0 0 0;
+        }
+
+        &.p-menu-overlay {
+            @include overlay-input-shadow();
+        }
+    }
+
+    .p-megamenu {
+        @include content();
+        @include corner-all();
+        padding: 0;
+        @include border-radius($borderRadius);
+
+        .p-megamenu-submenu-header {
+            @include header();
+            margin: 0 0 1px 0;
+            @include border-radius(0);
+            border: 0 none;
+            width: 100%;
+            box-sizing: border-box;
+            padding: .625em 1em;
+        }
+
+        .p-megamenu-panel {
+            @include content();
+            @include corner-all();
+            padding: .5em;
+            @include overlay-input-shadow();
+        }
+
+        .p-menuitem {
+            margin: 0;
+
+            &.p-menuitem-active {
+                > .p-menuitem-link {
+                    @include hover-element();
+
+                    .p-menuitem-text {
+                        color: $hoverTextColor;
+                    }
+
+                    .p-menuitem-icon {
+                        color: $hoverTextColor;
+                    }
+                }
+            }
+        }
+
+        &.p-megamenu-vertical {
+            .p-megamenu-root-list {
+                > .p-menuitem {
+                    > .p-menuitem-link {
+                        > .p-submenu-icon {
+                            right: 0.429em;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .p-tabmenu {
+        @include content();
+        @include corner-all();
+        padding: 0;
+
+        .p-tabmenu-nav {
+            @include header();
+            padding: 0;
+            background-color: #ffffff;
+            border: 0 none;
+            @include border-radius(0);
+
+            &:after{
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            .p-tabmenuitem {
+                top: auto;
+                margin: 0 4px 0 0;
+                padding: 0;
+                border-style: solid;
+                border-width: 0 0 2px 0;
+                @include transition(border-color $transitionDuration);
+
+                .p-menuitem-link {
+                    padding: $headerPadding;
+
+                    &:focus {
+                        outline: 0 none;
+                    }
+
+                    .p-menuitem-text {
+                        color: $textColor;
+                    }
+
+                    .p-menuitem-icon, .p-menuitem-text {
+                        float: none;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+
+                    .p-menuitem-icon {
+                        margin-right: .25em;
+                        color: $textSecondaryColor;
+                    }
+                }
+
+                &:not(.p-highlight):not(.p-disabled):hover {
+                    @include hover-element();
+
+                    .p-menuitem-link {
+                        .p-menuitem-text {
+                            color: $hoverTextColor;
+                        }
+
+                        .p-menuitem-icon {
+                            color: $hoverTextColor;
+                        }
+                    }
+                }
+
+                &.p-highlight {
+                    background-color: #ffffff;
+                    border-color: $accentColor;
+                    border-style: solid;
+
+                    .p-menuitem-link {
+                        .p-menuitem-text {
+                            color: $primaryColor;
+                        }
+
+                        .p-menuitem-icon {
+                            color: $primaryColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .p-panelmenu {
+
+        span {
+            vertical-align: middle;
+        }
+
+        .p-panelmenu-header {
+            background-color: $accordionHeaderBgColor;
+            margin-top: .25em;
+
+            a {
+                color: $accordionHeaderTextColor;
+                font-weight: $headerFontWeight;
+            }
+
+            .p-panelmenu-icon,
+            .p-menuitem-icon {
+                font-size: $iconFontSize - 2;
+            }
+
+            .pi {
+                color:  $primaryTextColor;;
+            }
+
+            &.p-highlight {
+                background-color: $accentColor;
+                color: $accentTextColor;
+                @include border-radius-bottom(0);
+
+                a, .pi {
+                    color: $accentTextColor;
+                }
+            }
+        }
+
+        .p-panelmenu-panel {
+            margin-bottom: 1px;
+
+            &:first-child {
+                .p-panelmenu-header {
+                    @include corner-top;
+                }
+            }
+
+            &:last-child {
+                .p-panelmenu-header {
+                    @include corner-bottom;
+                }
+            }
+        }
+
+        .p-panelmenu-content {
+            @include content();
+            padding: 0;
+
+            .p-menuitem {
+                @include corner-all();
+                margin: 0;
+
+                .p-menuitem-link {
+                    border: 0 none;
+                    padding: $menuitemPadding;
+                    width: 100%;
+                    min-height: 30px;
+                    box-sizing: border-box;
+                    color: $textColor;
+                    @include border-radius(0);
+                    position: relative;
+
+                    &:hover {
+                        @include hover-element();
+                    }
+
+                    .p-panelmenu-icon,
+                    .p-menuitem-icon {
+                        font-size: $iconFontSize - 2;
+                    }
+
+                    .p-menuitem-text {
+                        display: inline-block;
+                        vertical-align: middle;
+                        float: none;
+                    }
+
+                    .pi {
+                        position: static;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+
+        .p-menu-parent .p-menu-list {
+            margin-left: 28px;
+        }
+    }
+}
+
+@media (max-width: 640px) {
+    body {
+        .p-steps {
+            .p-steps-item {
+                .p-menuitem-link {
+                    .p-steps-title {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}

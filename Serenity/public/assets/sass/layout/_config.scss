@@ -1,0 +1,323 @@
+.layout-config {
+	z-index: 1000002;
+	position: fixed;
+	padding: 0;
+	top: 64px;
+	display: block;
+	right: 0;
+	width: 550px;
+	z-index: 996;
+	height: calc(100% - 64px);
+	transform: translate3d(550px, 0px, 0px);
+	@include transition(transform $transitionDuration);
+	background-color: #ffffff;
+
+	&.layout-config-active {
+		transform: translate3d(0px, 0px, 0px);
+
+		.layout-config-content {
+			.layout-config-button {
+				i {
+					@include rotate(360deg);
+				}
+			}
+		}
+	}
+
+	.panel-items {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		flex-wrap: wrap;
+
+		.panel-item {
+			margin-right: 1em;
+			margin-bottom: 1em;
+			text-align: center;
+		}
+	}
+
+	.layout-config-content {
+		position: relative;
+		height: 100%;
+
+		> form {
+			height: 100%;
+		}
+
+		.layout-config-button {
+			display: block;
+			position: absolute;
+			width: 52px;
+			height: 52px;
+			line-height: 52px;
+			border: 1px solid #fafafa;
+			background-color: #fafafa;
+			text-align: center;
+			padding: 0;
+			top: 230px;
+			left: -51px;
+			z-index: -1;
+			cursor: pointer;
+			color: $primaryColor;
+			@include border-radius-left($borderRadius);
+			@include transition(color $transitionDuration);
+			box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2),
+			0 5px 22px 4px rgba(0, 0, 0, 0.12),
+			0 12px 17px 2px rgba(0, 0, 0, 0.14);
+
+			i {
+				font-size: 32px;
+				height: 52px;
+				line-height: 52px;
+				cursor: pointer;
+				@include rotate(0deg);
+				@include transition(transform 1s);
+			}
+
+			&:hover {
+				color: lighten($primaryColor, 15%);
+			}
+		}
+	}
+
+	.layout-config-close {
+		position: absolute;
+		width: 25px;
+		height: 25px;
+		line-height: 25px;
+		text-align: center;
+		padding: 0;
+		right: 32px;
+		top: 10px;
+		z-index: 999;
+		border: 1px solid #e0284f;
+		background-color: #e0284f;
+		@include border-radius(50%);
+		@include transition(background-color $transitionDuration);
+
+		i {
+			color: #ffffff;
+			line-height: inherit;
+			font-weight: bold;
+			font-size: 16px;
+		}
+
+		&:hover {
+			background-color: #d44d69;
+		}
+	}
+
+	.p-col {
+		text-align: center;
+	}
+
+	.p-tabview.p-tabview-top {
+		border: 0 none;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-ms-flex-direction: column;
+		flex-direction: column;
+		height: 100%;
+		@include shadow( 0 2px 10px 0 rgba(0, 0, 0, 0.24));
+		background-color: #ffffff;
+
+		> .p-tabview-nav {
+			display: flex;
+			padding-right: 60px;
+			flex-wrap: wrap;
+
+			li {
+				vertical-align: bottom;
+				top: auto;
+				margin: 0;
+				background-color: transparent;
+				border: 0 none;
+				border-radius: 0;
+				border-bottom: 3px solid transparent;
+				cursor: pointer;
+
+				&:not(.p-highlight):not(.p-disabled):hover {
+					border-color: lighten($color: $primaryColor, $amount: 25);
+					background-color: lighten($color: $primaryColor, $amount: 45);
+					@include transition(background-color $transitionDuration);
+
+					> a {
+						color: #1b1c1e;
+					}
+				}
+
+				&.p-highlight {
+					border: none;
+					border-bottom: 3px solid $primaryColor;
+					background-color: lighten($color: $primaryColor, $amount: 35);
+					@include transition(background-color $transitionDuration);
+					> a {
+						color: #1b1c1e;
+					}
+
+					&:hover {
+						background-color: lighten($color: $primaryColor, $amount: 45);
+						@include transition(background-color $transitionDuration);
+						> a {
+							color: #1b1c1e;
+						}
+					}
+				}
+
+				> a {
+					color: #1b1c1e;
+					padding: 13px 15px 10px;
+				}
+			}
+		}
+
+		.p-tabview-panels {
+			padding: 1em 0;
+			height: 100%;
+			overflow: auto;
+			border-width: 1px 0 0 0;
+			color: #1b1c1e;
+			@include border-radius-bottom(4px);
+
+			.p-tabview-panel {
+				padding: 2em ;
+			}
+
+			img {
+				max-height: 100px;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+			}
+
+			button {
+				display: flex;
+				width: auto;
+				height: auto;
+				position: relative;
+				overflow: hidden;
+				justify-content: center;
+				align-items: center;
+				@include transition(transform $transitionDuration);
+				box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+
+				&:hover {
+					@include scale(1.1);
+				}
+
+				i {
+					font-size: 32px;
+					color: $primaryColor;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					margin-top: -20px;
+					margin-left: -20px;
+					@include border-radius(50%);
+					background-color: #ffffff;
+					text-align: center;
+					width: 40px;
+					line-height: 40px;
+					height: 40px;
+					font-weight: bold;
+					box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+					z-index: 1;
+				}
+
+				&.layout-config-option {
+					width: auto;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					height: auto;
+					overflow: hidden;
+					text-align: center;
+
+
+					&:hover {
+						@include scale(1.1);
+					}
+
+					&.layout-config-option-light {
+						i {
+							color: #000000;
+						}
+					}
+				}
+
+				&.layout-config-layout-option {
+					img {
+						height: 87px;
+						width: 109px;
+					}
+				}
+			}
+
+			h1 {
+				font-size: 21px;
+				font-weight: 600px;
+				margin: 0;
+				margin-bottom: 10px;
+			}
+
+			span {
+				color: #000000;
+				font-size: 13px;
+				font-weight: 500;
+				display: block;
+				margin-top: 6px;
+				margin-bottom: 15px;
+			}
+
+			.p-disabled {
+				display: flex;
+				width: auto;
+				height: auto;
+				position: relative;
+				overflow: hidden;
+				justify-content: center;
+				align-items: center;
+				pointer-events: none;
+				cursor: default;
+
+				i {
+					font-size: 48px;
+					color: $primaryColor;
+					position: absolute;
+				}
+			}
+		}
+	}
+
+	p {
+		line-height: 1.5;
+		margin-top: 0;
+		color: $textSecondaryColor;
+	}
+}
+
+.blocked-scroll-config{
+	overflow: hidden;
+}
+
+@media screen and (max-width: $mobileBreakpoint) {
+	.layout-config {
+		transform: translate3d(100%, 0px, 0px);
+
+		&.layout-config-active {
+			width: 100%;
+			transform: translate3d(0px, 0px, 0px);
+		}
+
+		.layout-config-button {
+			left: auto;
+			right: -52px;
+		}
+
+		.layout-config-close {
+			right: 10px;
+		}
+	}
+}

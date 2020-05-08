@@ -1,0 +1,733 @@
+.layout-wrapper {
+	.layout-sidebar {
+		width: 240px;
+		height: 100%;
+		position: fixed;
+		left: -180px;
+		top: 0;
+		overflow: auto;
+		-webkit-transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+		transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+		z-index: 999999;
+		background-color: $sidebarBgColor;
+		@include box-sizing(border-box);
+		@include transition(left $transitionDuration);
+		@include shadow(3px 0 6px rgba(0, 0, 0, 0.3));
+
+		@if variable-exists(menuBgImageLight) {
+			background-image: url("../images/special/#{$menuBgImageLight}");
+			background-size: 240px 100%;
+			background-repeat: no-repeat;
+		}
+
+		.sidebar-logo {
+			height: 64px;
+			background-color: $sidebarLogoBgColor;
+			padding-top: 8px;
+			@include box-sizing(border-box);
+
+			img {
+				height: 48px;
+				margin-left: 12px;
+				vertical-align: middle;
+			}
+
+			.sidebar-anchor {
+				display: none;
+				cursor: pointer;
+				width: 18px;
+				height: 18px;
+				border: 2px solid $primaryTextColor;
+				background-color: $primaryColor;
+				vertical-align: middle;
+				float: right;
+				margin-right: 8px;
+				margin-top: 12px;
+				@include border-radius(50%);
+				@include transition(background-color $transitionDuration);
+			}
+
+			.app-name {
+				color: $primaryTextColor;
+				vertical-align: middle;
+				font-size: 26px;
+			}
+		}
+
+		.layout-menu {
+			list-style-type: none;
+			margin: 10px 0 0 0;
+			padding: 0;
+
+			li {
+				padding: 4px 10px;
+				width: 100%;
+				@include box-sizing(border-box);
+
+				&.active-menuitem {
+					> a {
+						color: $subMenuitemActiveTextColor;
+
+						i {
+							color: $subMenuitemActiveIconTextColor;
+						}
+
+						i.layout-submenu-toggler {
+							@include rotate(-180deg);
+						}
+					}
+
+					> ul {
+						max-height: 1000px;
+						@include transition(max-height 1s ease-in-out);
+					}
+				}
+
+				> a {
+					user-select: none;
+					cursor: pointer;
+					color: $menuitemTextColor;
+					display: block;
+					padding: 10px 10px 10px 10px;
+					position: relative;
+					@include border-radius(0);
+					@include box-sizing(border-box);
+					@include transition(all $transitionDuration);
+
+					&:hover {
+						background-color: $menuitemHoverBgColor;
+						color: $menuitemHoverTextColor;
+
+						i {
+							color: $menuitemHoverIconTextColor;
+						}
+					}
+
+					> .menuitem-text {
+						display: inline-block;
+						max-width: 145px;
+						word-break: break-all;
+					}
+
+					i {
+						color: $menuitemIconTextColor;
+						float: right;
+						width: 20px;
+						height: 20px;
+						font-size: 20px;
+						position: absolute;
+						right: 10px;
+						top: 50%;
+						margin-top: -10px;
+
+						&.layout-submenu-toggler {
+							@include transition(all $transitionDuration);
+							right: 34px;
+							display: none;
+						}
+					}
+
+					.menuitem-badge {
+						display: none;
+						position: absolute;
+						right: 54px;
+						top: 50%;
+						margin-top: -8px;
+					}
+				}
+
+				a {
+					&.active-menuitem-routerlink {
+						color: $subMenuitemActiveTextColor;
+
+						i {
+							color: $subMenuitemActiveTextColor;
+						}
+					}
+				}
+
+				ul {
+					list-style-type: none;
+					margin: 0;
+					padding: 0;
+					display: none;
+					overflow: hidden;
+
+					&.layout-submenu-enter {
+						max-height: 0;
+						display: block;
+					}
+
+					&.layout-submenu-enter-active {
+						max-height: 1000px;
+						transition: max-height cubic-bezier(0.86, 0, 0.07, 1) .4s;
+					}
+
+					&.layout-submenu-enter-done {
+						display: block;
+					}
+
+					&.layout-submenu-exit {
+						max-height: 1000px;
+						display: block;
+					}
+
+					&.layout-submenu-exit-active {
+						max-height: 0;
+						display: block;
+						transition: max-height cubic-bezier(0.86, 0, 0.07, 1) .3s;
+					}
+
+					li {
+						padding: 4px 0;
+
+						a {
+							padding-left: 20px;
+						}
+
+						ul {
+							li {
+								a {
+									padding-left: 30px;
+								}
+
+								ul {
+									li {
+										a {
+											padding-left: 40px;
+										}
+									}
+
+									ul {
+										li {
+											a {
+												padding-left: 50px;
+											}
+										}
+
+										ul {
+											li {
+												a {
+													padding-left: 60px;
+												}
+											}
+
+											ul {
+												li {
+													a {
+														padding-left: 70px;
+													}
+												}
+
+												ul {
+													li {
+														a {
+															padding-left: 80px;
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			> li {
+				> a {
+					@include border-radius(6px);
+				}
+
+				&:first-child.active-menuitem a {
+					@include border-radius(6px);
+				}
+
+				&.active-menuitem {
+					> a {
+						color: $menuitemActiveTextColor;
+						background-color: $menuitemActiveBgColor;
+						@include border-radius(6px);
+						@include border-radius-bottom(0);
+						@include multi-shadow(0 4px 20px 0 rgba(0, 0, 0, .14), 0 7px 10px -5px rgba(60, 72, 88, .3), 0 7px 10px -5px rgba(60, 72, 88, .1));
+
+						i {
+							color: $menuitemActiveIconTextColor;
+						}
+					}
+
+					> ul {
+						background-color: $submenuBgColor;
+						@include border-radius-bottom(6px);
+					}
+				}
+			}
+
+			.menuitem-badge {
+				float: right;
+				display: inline-block;
+				width: 16px;
+				height: 16px;
+				margin-right: 6px;
+				text-align: center;
+				background-color: $accentColor;
+				color: $accentTextColor;
+				font-size: $fontSize - 2;
+				font-weight: 700;
+				line-height: 16px;
+				@include border-radius(50%);
+			}
+		}
+
+		&.layout-sidebar-active {
+			left: 0;
+
+			.sidebar-logo {
+				img {
+					display: inline;
+				}
+
+				.sidebar-anchor {
+					display: inline-block;
+				}
+			}
+
+			.layout-menu {
+				li {
+					a {
+						i.layout-submenu-toggler {
+							display: inline-block;
+						}
+
+						.menuitem-badge {
+							display: inline-block;
+						}
+					}
+				}
+			}
+		}
+
+		&.layout-sidebar-dark {
+			background-color: $darkSidebarBgColor;
+
+			@if variable-exists(menuBgImageDark) {
+				background-image: url("../images/special/#{$menuBgImageDark}");
+			}
+
+			.layout-menu {
+				li {
+					> a {
+						color: $darkMenuitemTextColor;
+
+						&:hover {
+							background-color: $darkMenuitemHoverBgColor;
+							color: $darkMenuitemHoverTextColor;
+
+							i {
+								color: $darkMenuitemHoverIconTextColor;
+							}
+						}
+
+						i {
+							color: $darkMenuitemIconTextColor;
+						}
+					}
+
+					&.active-menuitem {
+						> a {
+							color: $darksubMenuitemActiveTextColor;
+
+							i {
+								color: $darksubMenuitemActiveIconTextColor;
+							}
+						}
+					}
+
+					a {
+						&.active-menuitem-routerlink {
+							color: $darksubMenuitemActiveTextColor;
+
+							i {
+								color: $darksubMenuitemActiveTextColor;
+							}
+						}
+					}
+				}
+
+				> li {
+					&.active-menuitem {
+						> a {
+							background-color: $darkMenuitemActiveBgColor;
+							color: $darkMenuitemActiveTextColor;
+
+							i {
+								color: $darkMenuitemActiveIconTextColor;
+							}
+						}
+
+						> ul {
+							background-color: $darkSubmenuBgColor;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+.layout-wrapper-static {
+	.layout-sidebar {
+		left: 0;
+
+		.sidebar-logo {
+			.sidebar-anchor {
+				display: inline-block;
+				background-color: $primaryTextColor;
+			}
+		}
+
+		.layout-menu {
+			li {
+				a {
+					i.layout-submenu-toggler {
+						display: inline-block;
+					}
+
+					.menuitem-badge {
+						display: inline-block;
+					}
+				}
+			}
+		}
+	}
+}
+
+.layout-wrapper-static-restore {
+	.layout-sidebar {
+		@include transition(none);
+	}
+}
+
+@media (min-width: 1025px) {
+	.layout-wrapper {
+		&.layout-menu-horizontal {
+			.layout-sidebar {
+				width: 100%;
+				height: auto;
+				top: 64px;
+				left: 0;
+				z-index: 99;
+				overflow: visible;
+
+				@if variable-exists(horizontalMenuBgImageLight) {
+					background-image: url("../images/special/#{$horizontalMenuBgImageLight}");
+					background-size: auto;
+					background-repeat: no-repeat;
+					background-color: $horizontalMenuBgColor;
+				}
+
+				.sidebar-logo {
+					display: none;
+				}
+
+
+				.layout-menu-container {
+					background: transparent;
+
+					.layout-menu {
+						margin: 0;
+						padding-bottom: 0;
+						width: 100%;
+
+						> li {
+							width: auto;
+							padding: 0;
+							position: relative;
+							float: left;
+
+							> a {
+								height: 44px;
+								padding-top: 12px;
+								@include box-sizing(border-box);
+								@include border-radius(0);
+
+								&:hover {
+									background-color: $horizontalSubmenuitemHoverBgColor;
+								}
+
+								.menuitem-text {
+									vertical-align: middle;
+								}
+
+								i {
+									float: none;
+									position: static;
+									vertical-align: middle;
+									margin-top: 0;
+									top: auto;
+									right: auto;
+									margin-right: 5px;
+
+									&.layout-submenu-toggler {
+										display: inline-block;
+										margin-top: 2px;
+									}
+								}
+							}
+
+							&.active-menuitem {
+								> a {
+									color: $horizontalMenuActiveTextColor;
+
+									i {
+										color: $horizontalMenuActiveTextColor;
+									}
+
+									&:hover {
+										color: $horizontalMenuActiveHoverTextColor;
+
+										i {
+											color: $horizontalMenuActiveHoverTextColor;
+										}
+									}
+								}
+							}
+
+							> ul {
+								top: 44px;
+								left: 0;
+								width: 230px;
+								position: absolute;
+								padding: 0;
+								margin: 0;
+								z-index: 100;
+								height: 0;
+								overflow: auto;
+								max-height: 450px;
+								@include overlay-content-shadow();
+
+								li {
+									a {
+										padding-left: 40px;
+
+										&:hover {
+											background-color: $horizontalSubmenuitemHoverBgColor;
+										}
+
+										i {
+											float: none;
+											left: 10px;
+
+											&:last-child {
+												right: 10px;
+												left: auto;
+											}
+										}
+
+										.layout-submenu-toggler {
+											display: block;
+											left: auto;
+											right: 10px;
+										}
+									}
+
+									ul {
+										li {
+											a {
+												padding-left: 50px;
+
+												&:hover {
+													background-color: $horizontalSubmenuitemHoverBgColor;
+												}
+
+												i:first-child {
+													left: 20px;
+												}
+											}
+										}
+
+										ul {
+											li {
+												a {
+													padding-left: 60px;
+
+													&:hover {
+														background-color: $horizontalSubmenuitemHoverBgColor;
+													}
+
+													i:first-child {
+														left: 30px;
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+
+							&.active-menuitem {
+								> ul {
+									height: auto;
+									background-color: $horizontalSubmenuBgColor;
+								}
+							}
+						}
+
+						li {
+
+							a {
+								&:hover {
+									background-color: $horizontalSubmenuitemHoverBgColor;
+									color: $horizontalMenuActiveHoverTextColor;
+
+									i {
+										color: $horizontalMenuActiveHoverTextColor;
+									}
+								}
+
+								.menuitem-badge {
+									left: 18px;
+									top: 15px;
+									display: block;
+								}
+							}
+						}
+					}
+				}
+
+
+				&.layout-sidebar-dark {
+					background-color: $horizontalDarkSubmenuBgColor;
+
+					@if variable-exists(horizontalMenuBgImageDark) {
+						background-image: url("../images/special/#{$horizontalMenuBgImageDark}");
+						background-color: $horizontalDarkMenuBgColor;
+					}
+
+					.layout-menu {
+						> li {
+							> a {
+								&:hover {
+									background-color: $horizontalSubmenuitemDarkHoverBgColor;
+									color: $horizontalSubmenuitemDarkHoverTextColor;
+
+									i {
+										color: $horizontalDarkMenuActiveTextColor;
+									}
+								}
+							}
+
+							> ul {
+								li {
+									a {
+										&:hover {
+											background-color: $horizontalSubmenuitemDarkHoverBgColor;
+										}
+									}
+								}
+							}
+						}
+
+						li {
+							a {
+								&:hover {
+									color: $horizontalSubmenuitemDarkHoverTextColor;
+
+									i {
+										color: $horizontalSubmenuitemDarkHoverTextColor;
+									}
+								}
+							}
+
+							&.active-menuitem {
+								> a {
+									@if not variable-exists(horizontalMenuBgImageDark) {
+										color: lighten($primaryLightColor, 6%);
+
+										i {
+											color: lighten($primaryLightColor, 6%);
+										}
+									}
+
+									&:hover {
+										color: $horizontalDarkMenuActiveHoverTextColor;
+
+										i {
+											color: $horizontalDarkMenuActiveHoverTextColor;
+										}
+									}
+								}
+							}
+						}
+
+						> li {
+							&.active-menuitem {
+								> a {
+									color: $horizontalDarkMenuActiveTextColor;
+
+									i {
+										color: $horizontalDarkMenuActiveTextColor;
+									}
+								}
+
+								> ul {
+									background-color: $horizontalDarkSubmenuBgColor;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			.layout-main {
+				margin-left: 0px;
+
+				.layout-topbar {
+					width: 100%;
+
+					.topbar-logo {
+						float: left;
+						margin-top: -10px;
+						margin-right: 20px;
+						display: inline-block;
+
+						img {
+							height: 56px;
+							vertical-align: middle;
+						}
+
+						.app-name {
+							color: $primaryTextColor;
+							font-size: 26px;
+						}
+					}
+
+					.layout-topbar-menu-wrapper {
+						.topbar-menu {
+							> li.profile-item {
+								float: right;
+								margin-left: 20px;
+
+								> ul {
+									left: auto;
+									right: 105px;
+
+									&:before {
+										left: 232px;
+									}
+								}
+							}
+						}
+
+					}
+				}
+
+				.layout-breadcrumb {
+					padding-top: 108px;
+				}
+			}
+		}
+	}
+}
