@@ -13,21 +13,21 @@ export class StudentService extends Component {
         return axios.get('https://huy.fromlabs.com/api/student', { 'headers': { 'Authorization': AuthStr } })
     }
 }
- class StudentAddService extends Component  {
-    addStudent(data) {
+export class StudentDeleteService extends Component {
+    deleteStudent() {
         const token = getToken();
         const AuthStr = 'Bearer '.concat(token)
-        return axios.post('http://huy.fromlabs.com/api/student',data, { 'headers': { 'Authorization': AuthStr } })
+        return axios.delete('https://huy.fromlabs.com/api/student', { 'headers': { 'Authorization': AuthStr } })
     }
 }
-export default new StudentAddService();
+
 export class StudentTable extends Component {
 
     constructor() {
         super();
         this.state = { isAdmin: true };
         this.StudentService = new StudentService();
-        this.StudentAddService = new StudentAddService();
+        this.StudentDeleteService = new StudentDeleteService();
     }
 
     componentDidMount(e) {
@@ -61,6 +61,9 @@ export class StudentTable extends Component {
             <Button type="button" onclick={this.delete} icon="pi pi-times" className="p-button-danger" />
         </div>;
     }
+
+
+
     render() {
 
         let actionHeader = <Button type="button" icon="pi-md-plus" />;
@@ -71,10 +74,21 @@ export class StudentTable extends Component {
                     {this.state.isAdmin ?
                         <div className="card card-w-title datatable-demo">
                             <h1>Students List</h1>
-                            
-                            <DataTable value={this.state.students} ref={(el) => this.dt = el} selectionMode="single" header="Students List" paginator={true} rows={10}
+                           
+                            <DataTable value={this.state.students} header="Students List" paginator={true} rows={10}
                                 responsive={true} >
-                                
+                                 <div className="form-group">
+                                <label htmlFor="title">Title</label>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    id="title"
+                                    required
+                                    value={this.state.title}
+                                    onChange={this.onChangeTitle}
+                                    name="title"
+                                />
+                            </div>
                                 <Column field="student_id" header="Student ID" sortable={true} filter={true} />
                                 <Column field="name" header="Student Name" sortable={true} filter={true} />
                                 <Column field="email" header="Email Address" sortable={true} filter={true} />

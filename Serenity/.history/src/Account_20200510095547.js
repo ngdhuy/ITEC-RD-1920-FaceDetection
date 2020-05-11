@@ -154,7 +154,7 @@ class Account extends Component {
             {label: 'Account', icon: 'people', to:'/account'},
             {label: 'Course', icon: 'dashboard', to:'/course'},
             {label: 'Students', icon: 'people', to:'/student'},
-            {label: 'Attendance', icon: 'people',to:'/attendance'},
+            {label: 'Attendance', icon: 'people',to:'/student'},
             {label: 'Logout', icon: 'power', command:()=>{ removeUserSession(); this.props.history.push('/');}}
         ];
     }
