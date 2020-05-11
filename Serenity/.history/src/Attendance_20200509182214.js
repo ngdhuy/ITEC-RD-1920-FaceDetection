@@ -15,9 +15,9 @@ import './ripple.js';
 import './App.css';
 
 import {removeUserSession} from './utils/Common'
-import {AccountTable} from './components/AccountTable'
+import {StudentTable} from './components/StudentTable'
 
-class Account extends Component {
+class Attendance extends Component {
 
     constructor() {
         super();
@@ -154,7 +154,7 @@ class Account extends Component {
             {label: 'Account', icon: 'people', to:'/account'},
             {label: 'Course', icon: 'dashboard', to:'/course'},
             {label: 'Students', icon: 'people', to:'/student'},
-            {label: 'Attendance', icon: 'people',to:'/attendance'},
+            {label: 'Attendance', icon: 'people', to:'/attendance'},
             {label: 'Logout', icon: 'power', command:()=>{ removeUserSession(); this.props.history.push('/');}}
         ];
     }
@@ -269,8 +269,8 @@ class Account extends Component {
 
                     <AppBreadCrumbWithRouter />
                     <div className="layout-content">
-                        <AccountTable/>
-                    </div>
+                        <AttendanceTable/>
+                    </div>                    
 
                     <AppFooter />
 
@@ -281,4 +281,4 @@ class Account extends Component {
   }
 }
 
-export default Account;
+export default Attendance;

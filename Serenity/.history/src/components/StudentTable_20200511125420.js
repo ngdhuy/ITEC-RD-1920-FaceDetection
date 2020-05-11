@@ -61,6 +61,9 @@ export class StudentTable extends Component {
             <Button type="button" onclick={this.delete} icon="pi pi-times" className="p-button-danger" />
         </div>;
     }
+
+
+
     render() {
 
         let actionHeader = <Button type="button" icon="pi-md-plus" />;

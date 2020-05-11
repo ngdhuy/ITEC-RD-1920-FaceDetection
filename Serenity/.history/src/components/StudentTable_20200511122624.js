@@ -14,10 +14,10 @@ export class StudentService extends Component {
     }
 }
  class StudentAddService extends Component  {
-    addStudent(data) {
+    addStudent() {
         const token = getToken();
         const AuthStr = 'Bearer '.concat(token)
-        return axios.post('http://huy.fromlabs.com/api/student',data, { 'headers': { 'Authorization': AuthStr } })
+        return axios.post('https://huy.fromlabs.com/api/student', { 'headers': { 'Authorization': AuthStr } })
     }
 }
 export default new StudentAddService();
@@ -61,6 +61,9 @@ export class StudentTable extends Component {
             <Button type="button" onclick={this.delete} icon="pi pi-times" className="p-button-danger" />
         </div>;
     }
+
+
+
     render() {
 
         let actionHeader = <Button type="button" icon="pi-md-plus" />;

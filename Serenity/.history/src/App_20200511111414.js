@@ -19,7 +19,7 @@ function App() {
         <div>
           <div className="content">
             <Switch>
-              <PublicRoute exact path="/" component={Login} />
+              
               <PrivateRoute path="/home" component={Home} />
               <PrivateRoute path="/course" component={Course} />
               <PrivateRoute path="/account" component={Account} />

@@ -36,7 +36,7 @@ export class AccountTable extends Component {
     actionTemplate(rowData, column) {
         return <div>
             <Button type="button" icon="pi-md-pencil" className="p-button-warning"/>
-            <Button type="button" icon="pi pi-times" className="p-button-danger"/>
+            <Button type="button" icon="pi-md-times" className="p-button-danger"/>
         </div>;
     }
 
