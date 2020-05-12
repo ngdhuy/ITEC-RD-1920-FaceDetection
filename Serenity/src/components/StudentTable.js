@@ -4,6 +4,10 @@ import { getToken } from '../utils/Common'
 import axios from 'axios';
 import { Button } from 'primereact/button'
 import Access from '../pages/Access'
+import { useHistory } from "react-router-dom";
+
+
+
 
 
 export class StudentService extends Component {
@@ -23,8 +27,8 @@ export class StudentService extends Component {
 export default new StudentAddService();
 export class StudentTable extends Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = { isAdmin: true };
         this.StudentService = new StudentService();
         this.StudentAddService = new StudentAddService();
@@ -55,15 +59,17 @@ export class StudentTable extends Component {
                 }
             })
     }
+
     actionTemplate(rowData, column) {
         return <div>
             <Button type="button" icon="pi-md-pencil" className="p-button-warning" />
             <Button type="button" onclick={this.delete} icon="pi pi-times" className="p-button-danger" />
         </div>;
     }
+
     render() {
 
-        let actionHeader = <Button type="button" icon="pi-md-plus" />;
+        let actionHeader = <Button type="button" icon="pi-md-plus"></Button>;
 
         return (
             <div className="p-grid">
@@ -75,12 +81,12 @@ export class StudentTable extends Component {
                             <DataTable value={this.state.students} ref={(el) => this.dt = el} selectionMode="single" header="Students List" paginator={true} rows={10}
                                 responsive={true} >
                                 
-                                <Column field="student_id" header="Student ID" sortable={true} filter={true} />
-                                <Column field="name" header="Student Name" sortable={true} filter={true} />
-                                <Column field="email" header="Email Address" sortable={true} filter={true} />
-                                <Column field="phone" header="Phone Number" sortable={true} filter={true} />
-                                <Column field="gender" header="Gender" sortable={true} filter={true} />
-                                <Column field="class_id" header="Class ID" sortable={true} filter={true} />
+                                <Column field="student_id" header="Student ID" sortable={true}  />
+                                <Column field="name" header="Student Name" sortable={true}  />
+                                <Column field="email" header="Email Address" sortable={true}  />
+                                <Column field="phone" header="Phone Number" sortable={true}  />
+                                <Column field="gender" header="Gender" sortable={true}  />
+                                <Column field="class_id" header="Class ID" sortable={true} />
                                 <Column header={actionHeader} body={this.actionTemplate} style={{ textAlign: 'center', width: '8em' }} />
                             </DataTable>
                         </div> : <Access />

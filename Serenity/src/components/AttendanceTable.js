@@ -55,10 +55,10 @@ export class AttendanceTable extends Component {
                         <h1>Students List</h1>
                         <DataTable value={this.state.attendances} header="Students List" paginator={true} rows={10}
                                    responsive={true} >
-                            <Column field="attendance_id" header="Attendance ID" sortable={true} filter={true} />
-                            <Column field="student_of_course_id" header="Student Of Course ID" sortable={true} filter={true} />
-                            <Column field="status" header="Status" sortable={true} filter={true}/>
-                            <Column field="date_check" header="Date Check" sortable={true} filter={true} />
+                            <Column field="attendance_id" header="Attendance ID" sortable={true} />
+                            <Column field="student_of_course_id" header="Student Of Course ID" sortable={true} />
+                            <Column field="status" header="Status" sortable={true} />
+                            <Column field="date_check" header="Date Check" sortable={true} />
                            
                             <Column header={actionHeader} body={this.actionTemplate} style={{textAlign:'center', width: '8em'}}/>
                         </DataTable>

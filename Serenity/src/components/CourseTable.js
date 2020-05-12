@@ -53,10 +53,10 @@ export class CourseTable extends Component {
                         <h1>Courses List</h1>
                         <DataTable value={this.state.courses} header="Courses List" paginator={true} rows={10}
                                    responsive={true} >
-                            <Column field="course_id" header="Course ID" sortable={true} filter={true} />
-                            <Column field="course_name" header="Course Name" sortable={true} filter={true} />
-                            <Column field="course_start_date" header="Start Date" sortable={true} filter={true}/>
-                            <Column field="course_end_date" header="End Date" sortable={true} filter={true} />
+                            <Column field="course_id" header="Course ID" sortable={true} />
+                            <Column field="course_name" header="Course Name" sortable={true} />
+                            <Column field="course_start_date" header="Start Date" sortable={true} />
+                            <Column field="course_end_date" header="End Date" sortable={true} />
                             <Column header={actionHeader} body={this.actionTemplate} style={{textAlign:'center', width: '8em'}}/>
                         </DataTable>
                     </div> : <Access/>

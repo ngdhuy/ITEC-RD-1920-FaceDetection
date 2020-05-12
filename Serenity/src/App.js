@@ -24,8 +24,7 @@ function App() {
               <PrivateRoute path="/course" component={Course} />
               <PrivateRoute path="/account" component={Account} />
               <PrivateRoute path="/student" component={Student} />
-              <PrivateRoute path="/add" component={AddStudent} />
-              
+              <PrivateRoute path="/add" component={AddStudent} /> 
               <PrivateRoute path="/attendance" component={Attendance} />
             </Switch>
           </div>

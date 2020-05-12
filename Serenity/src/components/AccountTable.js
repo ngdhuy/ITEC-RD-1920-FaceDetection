@@ -52,10 +52,10 @@ export class AccountTable extends Component {
                             <h1>Accounts List</h1>
                             <DataTable value={this.state.accounts} header="Accounts List" paginator={true} rows={10}
                                     responsive={true} >
-                                <Column field="account_id" header="Accound ID" sortable={true} filter={true} />
-                                <Column field="username" header="User Name" sortable={true} filter={true} />
-                                <Column field="teacher_id" header="Teacher ID" sortable={true} filter={true}/>
-                                <Column field="account_type" header="Account Type" sortable={true} filter={true} />
+                                <Column field="account_id" header="Accound ID" sortable={true} />
+                                <Column field="username" header="User Name" sortable={true} />
+                                <Column field="teacher_id" header="Teacher ID" sortable={true} />
+                                <Column field="account_type" header="Account Type" sortable={true} />
                                 <Column header={actionHeader} body={this.actionTemplate} style={{textAlign:'center', width: '8em'}}/>
                             </DataTable>
                         </div> : <Access/>
