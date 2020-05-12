@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-// import StudentAddService from "./StudentTable";
+import StudentAddService from "./StudentTable";
 import Access from '../pages/Access'
-import StudentDataService from "../service/StudentService";
 
 export default class AddStudent extends Component {
   constructor(props) {
@@ -15,8 +14,8 @@ export default class AddStudent extends Component {
     this.state = {
        
      isAdmin: true ,
-      student_id: "",
-      name: "",
+      student_id: null,
+      student_name: "",
       class_id : "",
       submitted: false
     };
@@ -30,7 +29,7 @@ export default class AddStudent extends Component {
 
   onChangeStudentName(e) {
     this.setState({
-        name: e.target.value
+        student_name: e.target.value
     });
   }
   onChangeClassID(e) {
@@ -46,7 +45,7 @@ export default class AddStudent extends Component {
        
     };
 
-    StudentDataService.create(data)
+    StudentAddService.addStudent(data)
       .then(response =>  {
         this.setState({
             student_id: response.data.student_id,
@@ -69,7 +68,7 @@ export default class AddStudent extends Component {
   newTutorial() {
     this.setState({
       student_id: "",
-      name: "",
+      student_name: "",
       class_id:"",
       submitted: false
     });

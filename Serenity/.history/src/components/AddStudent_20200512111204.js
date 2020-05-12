@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 // import StudentAddService from "./StudentTable";
 import Access from '../pages/Access'
-import StudentDataService from "../service/StudentService";
+import StudentAddService from "../service/StudentService";
 
 export default class AddStudent extends Component {
   constructor(props) {
@@ -46,7 +46,7 @@ export default class AddStudent extends Component {
        
     };
 
-    StudentDataService.create(data)
+    StudentAddService.create(data)
       .then(response =>  {
         this.setState({
             student_id: response.data.student_id,
