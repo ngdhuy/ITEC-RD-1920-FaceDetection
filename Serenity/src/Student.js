@@ -270,7 +270,7 @@ class Student extends Component {
                     <AppBreadCrumbWithRouter />
                     <div className="layout-content">
                         <StudentTable/>
-                    </div>                    
+                    </div>                   
 
                     <AppFooter />
 

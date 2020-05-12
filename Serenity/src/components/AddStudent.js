@@ -52,8 +52,7 @@ export default class AddStudent extends Component {
             student_id: response.data.student_id,
             name: response.data.name,
             class_id: response.data.class_id,
-          submitted: true,
-          
+          submitted: true,          
         });
         console.log(response.data);
       })

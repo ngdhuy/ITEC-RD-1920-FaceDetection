@@ -5,6 +5,10 @@ import axios from 'axios';
 import { Button } from 'primereact/button'
 import Access from '../pages/Access'
 import StudentDataService from "../service/StudentService";
+import { withRouter } from 'react-router';
+import {Appbreadcrumb} from '../';
+import {Sidebar} from 'primereact/sidebar';
+
 
 
 export class StudentService extends Component {
@@ -19,7 +23,10 @@ export class StudentTable extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { isAdmin: true };
+        this.state = { 
+            isAdmin: true,
+            visibleRight: false
+         };
         this.StudentService = new StudentService();
        
     }
@@ -50,13 +57,14 @@ export class StudentTable extends Component {
     actionTemplate(rowData, column) {
         return <div>
             <Button type="button" icon="pi-md-pencil" className="p-button-warning" />
-            <Button type="button" onclick={this.deleteStudent} icon="pi pi-times" className="p-button-danger" />
+            <Button type="button" onClick={this.deleteStudent} icon="pi pi-times" className="p-button-danger" />
         </div>;
     }
 
     render() {
 
-        let actionHeader = <Button type="button" icon="pi-md-plus"></Button>;
+        let actionHeader = <Button type="button" icon="pi-md-plus" onClick={() => this.setState({visibleRight: true})}></Button>;
+
 
         return (
             <div className="p-grid">
@@ -79,7 +87,14 @@ export class StudentTable extends Component {
                         </div> : <Access />
                     }
                 </div>
+                <Sidebar visible={this.state.visibleRight} position="right" baseZIndex={1000000} onHide={(e) => this.setState({visibleRight: false})} style={{width: '30%'}}>
+                    <h1 style={{fontWeight:'normal'}}>Add Student Information</h1>
+                    
+                    <Button type="button" onClick={(e) => this.setState({visibleRight: false})} label="Save" className="p-button-success"  style={{marginRight:'.25em'}} />
+                    <Button type="button" onClick={(e) => this.setState({visibleRight: false})} label="Cancel" className="p-button-secondary"/>
+                </Sidebar>
             </div>
         );
     }
 }
+
