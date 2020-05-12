@@ -4,7 +4,7 @@ import { getToken } from '../utils/Common'
 import axios from 'axios';
 import { Button } from 'primereact/button'
 import Access from '../pages/Access'
-import StudentDataService from "../service/StudentService";
+import StudentAddService from "../service/StudentService";
 
 
 export class StudentService extends Component {
@@ -38,7 +38,7 @@ export class StudentTable extends Component {
             })
     }
     deleteStudent() {    
-        StudentDataService.delete(2)
+        StudentAddService.delete(this.state.students.id)
           .then(response => {
             console.log(response.data);
           

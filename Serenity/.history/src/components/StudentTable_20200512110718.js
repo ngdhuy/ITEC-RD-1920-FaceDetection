@@ -4,7 +4,6 @@ import { getToken } from '../utils/Common'
 import axios from 'axios';
 import { Button } from 'primereact/button'
 import Access from '../pages/Access'
-import StudentDataService from "../service/StudentService";
 
 
 export class StudentService extends Component {
@@ -14,6 +13,22 @@ export class StudentService extends Component {
         return axios.get('https://huy.fromlabs.com/api/student', { 'headers': { 'Authorization': AuthStr } })
     }
 }
+ class StudentAddService extends Component  {
+    addStudent(data) {
+        const token = getToken();
+        const AuthStr = 'Bearer '.concat(token)
+        return axios.post('https://huy.fromlabs.com/api/student',data, { 'headers': { 'Authorization': AuthStr } })
+    }
+}
+export default new StudentAddService();
+
+export class StudenDeleteService extends Component  {
+    deleteStudent(id) {
+        const token = getToken();
+        const AuthStr = 'Bearer '.concat(token)
+        return axios.delete('https://huy.fromlabs.com/api/student',id, { 'headers': { 'Authorization': AuthStr } })
+    }
+}
 
 export class StudentTable extends Component {
 
@@ -21,7 +36,7 @@ export class StudentTable extends Component {
         super();
         this.state = { isAdmin: true };
         this.StudentService = new StudentService();
-       
+        this.StudentAddService = new StudentAddService();
     }
 
     componentDidMount(e) {
@@ -37,11 +52,11 @@ export class StudentTable extends Component {
                 }
             })
     }
-    deleteStudent() {    
-        StudentDataService.delete(2)
+    deleteClass() {    
+        TutorialDataService.delete(this.state.currentTutorial.id)
           .then(response => {
             console.log(response.data);
-          
+            this.props.history.push('/tutorials')
           })
           .catch(e => {
             console.log(e);
@@ -50,7 +65,7 @@ export class StudentTable extends Component {
     actionTemplate(rowData, column) {
         return <div>
             <Button type="button" icon="pi-md-pencil" className="p-button-warning" />
-            <Button type="button" onclick={this.deleteStudent} icon="pi pi-times" className="p-button-danger" />
+            <Button type="button" onclick={this.delete} icon="pi pi-times" className="p-button-danger" />
         </div>;
     }
     render() {

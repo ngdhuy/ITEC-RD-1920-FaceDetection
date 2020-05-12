@@ -4,7 +4,6 @@ import { getToken } from '../utils/Common'
 import axios from 'axios';
 import { Button } from 'primereact/button'
 import Access from '../pages/Access'
-import StudentDataService from "../service/StudentService";
 
 
 export class StudentService extends Component {
@@ -14,14 +13,21 @@ export class StudentService extends Component {
         return axios.get('https://huy.fromlabs.com/api/student', { 'headers': { 'Authorization': AuthStr } })
     }
 }
-
+ class StudentAddService extends Component  {
+    addStudent(data) {
+        const token = getToken();
+        const AuthStr = 'Bearer '.concat(token)
+        return axios.post('http://localhost:8080/api/student/',data, { 'headers': { 'Authorization': AuthStr } })
+    }
+}
+export default new StudentAddService();
 export class StudentTable extends Component {
 
     constructor() {
         super();
         this.state = { isAdmin: true };
         this.StudentService = new StudentService();
-       
+        this.StudentAddService = new StudentAddService();
     }
 
     componentDidMount(e) {
@@ -37,20 +43,22 @@ export class StudentTable extends Component {
                 }
             })
     }
-    deleteStudent() {    
-        StudentDataService.delete(2)
-          .then(response => {
-            console.log(response.data);
-          
-          })
-          .catch(e => {
-            console.log(e);
-          });
-      }
+    delete() {
+        this.StudentDeleteService.deleteStudent()
+            .then(res => res.data)
+            .then(data => { this.setState({ students: data }) })
+            .catch(error => {
+                if (error) {
+                    this.setState({
+                        isAdmin: false
+                    })
+                }
+            })
+    }
     actionTemplate(rowData, column) {
         return <div>
             <Button type="button" icon="pi-md-pencil" className="p-button-warning" />
-            <Button type="button" onclick={this.deleteStudent} icon="pi pi-times" className="p-button-danger" />
+            <Button type="button" onclick={this.delete} icon="pi pi-times" className="p-button-danger" />
         </div>;
     }
     render() {

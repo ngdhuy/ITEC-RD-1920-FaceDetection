@@ -67,7 +67,7 @@ export class StudentTable extends Component {
                             <DataTable value={this.state.students} ref={(el) => this.dt = el} selectionMode="single" header="Students List" paginator={true} rows={10}
                                 responsive={true} >
                                 
-                                <Column field="student_id" header="Student ID" sortable={true} filter={true} />
+                                <Column field="student_id" header="Student ID" sortable={true} filter={true} /> <Button type="button" onclick={this.deleteStudent} icon="pi pi-times" className="p-button-danger" />
                                 <Column field="name" header="Student Name" sortable={true} filter={true} />
                                 <Column field="email" header="Email Address" sortable={true} filter={true} />
                                 <Column field="phone" header="Phone Number" sortable={true} filter={true} />
