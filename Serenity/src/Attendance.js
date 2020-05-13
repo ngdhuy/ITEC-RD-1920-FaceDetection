@@ -5,7 +5,7 @@ import { AppFooter } from './AppFooter';
 import { AppMenu } from './AppMenu';
 import { AppBreadcrumb } from "./AppBreadcrumb";
 import DomHandler from 'primereact/components/utils/DomHandler';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';
@@ -36,7 +36,6 @@ class Attendance extends Component {
         this.onTopbarItemClick = this.onTopbarItemClick.bind(this);
         this.onMenuButtonClick = this.onMenuButtonClick.bind(this);
         this.onTopbarMobileMenuButtonClick = this.onTopbarMobileMenuButtonClick.bind(this);
-        this.onWrapperClick = this.onWrapperClick.bind(this);
         this.onSidebarMouseEnter = this.onSidebarMouseEnter.bind(this);
         this.onSidebarMouseLeave = this.onSidebarMouseLeave.bind(this);
         this.onToggleMenuClick = this.onToggleMenuClick.bind(this);

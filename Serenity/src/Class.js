@@ -5,7 +5,7 @@ import { AppFooter } from './AppFooter';
 import { AppMenu } from './AppMenu';
 import { AppBreadcrumb } from "./AppBreadcrumb";
 import DomHandler from 'primereact/components/utils/DomHandler';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';

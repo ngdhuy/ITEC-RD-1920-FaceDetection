@@ -5,7 +5,7 @@ import { AppFooter } from './AppFooter';
 import { AppMenu } from './AppMenu';
 import { AppBreadcrumb } from "./AppBreadcrumb";
 import DomHandler from 'primereact/components/utils/DomHandler';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import '@fullcalendar/core/main.css';
 import '@fullcalendar/daygrid/main.css';
 import '@fullcalendar/timegrid/main.css';
@@ -153,6 +153,7 @@ class Account extends Component {
             {label: 'Home', icon: 'dashboard', to:'/'},
             {label: 'Account', icon: 'people', to:'/account'},
             {label: 'Course', icon: 'dashboard', to:'/course'},
+            {label: 'Class', icon: 'dashboard', to:'/class'},
             {label: 'Students', icon: 'people', to:'/student'},
             {label: 'Attendance', icon: 'people',to:'/attendance'},
             {label: 'Logout', icon: 'power', command:()=>{ removeUserSession(); this.props.history.push('/');}}
