@@ -24,21 +24,23 @@ export class StudentTable extends Component {
         super(props);
         this.onChangeStudentID = this.onChangeStudentID.bind(this);
         this.onChangeClassID = this.onChangeClassID.bind(this);
-        this.onChangeStudentName=this.onChangeStudentName.bind(this);
+        this.onChangeStudentName = this.onChangeStudentName.bind(this);
+        this.onChangeStudentMail = this.onChangeStudentMail.bind(this);
+        this.onChangeStudentPhone = this.onChangeStudentPhone.bind(this);
+        this.onChangeStudentGender = this.onChangeStudentGender.bind(this);
         this.saveStudent = this.saveStudent.bind(this);
-        this.newTutorial = this.newTutorial.bind(this);
-
         this.state = { 
             isAdmin: true,
             visibleRight: false,
-            student_id: "",
-            name: "",
-            class_id : "",
+            student_id:"",
+            name:"",
+            email:"",
+            phone:"",
+            gender:"",
+            class_id :"",
             submitted: false
-         };
-        
-         this.StudentService = new StudentService();
-       
+         };       
+        this.StudentService = new StudentService();       
     }
 
     componentDidMount(e) {
@@ -75,6 +77,21 @@ export class StudentTable extends Component {
             name: e.target.value
         });
       }
+    onChangeStudentMail(e) {
+        this.setState({
+            mail: e.target.value
+        });
+    }
+    onChangeStudentPhone(e) {
+        this.setState({
+            phone: e.target.value
+        });
+    }
+    onChangeStudentGender(e) {
+        this.setState({
+            gender: e.target.value
+        });
+    }
     onChangeClassID(e) {
         this.setState({
             class_id: e.target.value
@@ -84,48 +101,40 @@ export class StudentTable extends Component {
         var data = {
             student_id: this.state.student_id,
             name: this.state.name,
-            class_id: this.state.class_id
-           
+            mail: this.state.mail,
+            phone: this.state.phone,
+            gender: this.state.phone,
+            class_id: this.state.class_id          
         };
     
         StudentDataService.create(data)
-          .then(response =>  {
-            this.setState({
-                student_id: response.data.student_id,
-                name: response.data.name,
-                class_id: response.data.class_id,
-              submitted: true,          
-            });
-            console.log(response.data);
-          })
-          .catch(e => {
-            if (e) {
+            .then(response =>  {
                 this.setState({
-                    isAdmin: false
-                })
-            }
-          });
-      }
-    
-    newTutorial() {
-        this.setState({
-          student_id: "",
-          name: "",
-          class_id:"",
-          submitted: false
-        });
-      }
+                    student_id: response.data.student_id,
+                    name: response.data.name,
+                    mail: response.data.mail,
+                    phone: response.data.phone,
+                    gender: response.data.gender,
+                    class_id: response.data.class_id,
+                    submitted: true,          
+                });
+                console.log(response.data);
+             })
+            .catch(e => {
+            if (e) { this.setState({ isAdmin: false }) }
+             });
+        }
 
     actionTemplate(rowData, column) {
         return <div>
             <Button type="button" icon="pi-md-pencil" className="p-button-warning" />
-            <Button type="button" onClick={this.deleteStudent} icon="pi pi-times" className="p-button-danger" />
+            <Button type="button" icon="pi pi-times" className="p-button-danger" />
         </div>;
     }
 
     render() {
 
-        let actionHeader = <Button type="button" icon="pi-md-plus" onClick={() => this.setState({visibleRight: true})}></Button>;
+        let actionHeader = <Button type="button" icon="pi-md-plus" onClick={() => this.setState({visibleRight: true})} />;
 
 
         return (
@@ -156,6 +165,12 @@ export class StudentTable extends Component {
                             <InputText value={this.state.student_id} onChange={this.onChangeStudentID} id="student_id" name="student_id" /> <br/>
                             <h3>Student Name</h3><br/>
                             <InputText value={this.state.name} onChange={this.onChangeStudentName} id="name" name="name" /> <br/>
+                            <h3>Email Address</h3><br/>
+                            <InputText value={this.state.mail} onChange={this.onChangeStudentMail} id="mail" name="mail" /> <br/>
+                            <h3>Phone Number</h3><br/>
+                            <InputText value={this.state.phone} onChange={this.onChangeStudentPhone} id="phone" name="phone" /> <br/>
+                            <h3>Gender</h3><br/>
+                            <InputText value={this.state.gender} onChange={this.onChangeStudentGender} id="gender" name="gender" /> <br/>
                             <h3>Class ID</h3><br/>
                             <InputText value={this.state.class_id} onChange={this.onChangeClassID} id="class_id" name="class_id" /> <br/>
                         </div>

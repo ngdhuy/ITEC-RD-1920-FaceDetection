@@ -4,6 +4,9 @@ import {getToken} from '../utils/Common'
 import axios from 'axios';
 import {Button} from 'primereact/button'
 import Access from '../pages/Access'
+import CourseDataService from "../service/CourseService";
+import {Sidebar} from 'primereact/sidebar';
+import {InputText} from 'primereact/inputtext';
 
 
 export class CourseService extends Component {
@@ -16,9 +19,21 @@ export class CourseService extends Component {
 
 export class CourseTable extends Component {
 
-    constructor() {
-        super();
-        this.state = { isAdmin: true };
+    constructor(props) {
+        super(props);
+        this.onChangeCourseID = this.onChangeCourseID.bind(this);
+        this.onChangeCourseName = this.onChangeCourseName.bind(this);
+        this.onChangeCourseStartDate=this.onChangeCourseStartDate.bind(this);
+        this.onChangeCourseEndDate=this.onChangeCourseEndDate.bind(this);
+        this.saveCourse = this.saveCourse.bind(this);
+        this.state = { 
+            isAdmin: true,
+            visibleRight: false,
+            course_id:"",
+            course_name:"",
+            course_start_date:"",
+            course_end_date:"" 
+        };
         this.CourseService = new CourseService();
     }
 
@@ -33,17 +48,59 @@ export class CourseTable extends Component {
         })
     }
 
+    onChangeCourseID(e) {
+        this.setState({
+            course_id: e.target.value
+        });
+    }    
+    onChangeCourseName(e) {
+        this.setState({
+            course_name: e.target.value
+        });
+    }
+    onChangeCourseStartDate(e) {
+        this.setState({
+            course_start_date: e.target.value
+        });
+    }
+    onChangeCourseEndDate(e) {
+        this.setState({
+            course_end_date: e.target.value
+        });
+    }
+    saveCourse() {
+        var data = {
+            course_id: this.state.course_id,
+            course_name: this.state.course_name,
+            course_start_date: this.state.course_start_date,
+            course_end_date: this.state.course_end_date
+        };
+        CourseDataService.create(data)
+            .then(response =>  {
+                this.setState({
+                    course_id: response.data.course_id,
+                    course_name: response.data.course_name,
+                    course_start_date: response.data.course_start_date,
+                    course_end_date: response.data.course_end_date,
+                    submitted: true
+                });
+                console.log(response.data);
+            })
+            .catch(e => {
+                if (e) { this.setState({ isAdmin: false })}
+            });
+    };
+
     actionTemplate(rowData, column) {
         return <div>
-            <Button type="button" icon="pi-md-pencil" className="p-button-warning"/>
+            <Button type="button" icon="pi-md-pencil" className="p-button-warning" />
+            <Button type="button" icon="pi pi-times" className="p-button-danger" />
         </div>;
-    }
-
-    
+    }  
 
     render() {
 
-        let actionHeader = <Button type="button" icon="pi-md-plus"/>;
+        let actionHeader = <Button type="button" onClick={() => this.setState({visibleRight: true})} icon="pi-md-plus"/>;
 
         return (
             <div className="p-grid">
@@ -62,8 +119,23 @@ export class CourseTable extends Component {
                     </div> : <Access/>
                 }
                 </div>
-            </div>
-            
+                <Sidebar visible={this.state.visibleRight} position="right" baseZIndex={1000000} onHide={(e) => this.setState({visibleRight: false})} style={{width: '30%'}}>
+                    <h1 style={{fontWeight:'normal'}}>Add Course</h1>
+                        <div>
+                            <h3>Course ID</h3><br/>
+                            <InputText value={this.state.student_id} onChange={this.onChangeCourseID} id="course_id" name="course_id" /> <br/>
+                            <h3>Course Name</h3><br/>
+                            <InputText value={this.state.name} onChange={this.onChangeCourseName} id="course_name" name="course_name" /> <br/>
+                            <h3>Course Start Date</h3><br/>
+                            <InputText value={this.state.class_id} onChange={this.onChangeCourseStartDate} id="course_start_date" name="course_start_date" /> <br/>
+                            <h3>Course End Date</h3><br/>
+                            <InputText value={this.state.class_id} onChange={this.onChangeCourseEndDate} id="course_end_date" name="course_end_date" /> <br/>
+                        </div>
+                    <br/>
+                    <Button type="button" onClick={this.saveCourse} label="Submit" className="p-button-success"  style={{marginRight:'.25em'}} />
+                    <Button type="button" onClick={(e) => this.setState({visibleRight: false})} label="Close" className="p-button-secondary"/>
+                </Sidebar>
+            </div>            
         );
     }
 }
