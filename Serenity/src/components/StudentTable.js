@@ -5,9 +5,8 @@ import axios from 'axios';
 import { Button } from 'primereact/button'
 import Access from '../pages/Access'
 import StudentDataService from "../service/StudentService";
-import { withRouter } from 'react-router';
-import {Appbreadcrumb} from '../';
 import {Sidebar} from 'primereact/sidebar';
+import {InputText} from 'primereact/inputtext';
 
 
 
@@ -23,16 +22,26 @@ export class StudentTable extends Component {
 
     constructor(props) {
         super(props);
+        this.onChangeStudentID = this.onChangeStudentID.bind(this);
+        this.onChangeClassID = this.onChangeClassID.bind(this);
+        this.onChangeStudentName=this.onChangeStudentName.bind(this);
+        this.saveStudent = this.saveStudent.bind(this);
+        this.newTutorial = this.newTutorial.bind(this);
+
         this.state = { 
             isAdmin: true,
-            visibleRight: false
+            visibleRight: false,
+            student_id: "",
+            name: "",
+            class_id : "",
+            submitted: false
          };
-        this.StudentService = new StudentService();
+        
+         this.StudentService = new StudentService();
        
     }
 
     componentDidMount(e) {
-
         this.StudentService.getStudent()
             .then(res => res.data)
             .then(data => { this.setState({ students: data }) })
@@ -54,6 +63,59 @@ export class StudentTable extends Component {
             console.log(e);
           });
       }
+
+    onChangeStudentID(e) {
+        this.setState({
+            student_id: e.target.value
+        });
+      }
+    
+    onChangeStudentName(e) {
+        this.setState({
+            name: e.target.value
+        });
+      }
+    onChangeClassID(e) {
+        this.setState({
+            class_id: e.target.value
+        });
+      }
+    saveStudent() {
+        var data = {
+            student_id: this.state.student_id,
+            name: this.state.name,
+            class_id: this.state.class_id
+           
+        };
+    
+        StudentDataService.create(data)
+          .then(response =>  {
+            this.setState({
+                student_id: response.data.student_id,
+                name: response.data.name,
+                class_id: response.data.class_id,
+              submitted: true,          
+            });
+            console.log(response.data);
+          })
+          .catch(e => {
+            if (e) {
+                this.setState({
+                    isAdmin: false
+                })
+            }
+          });
+      }
+    
+    newTutorial() {
+        this.setState({
+          student_id: "",
+          name: "",
+          class_id:"",
+          submitted: false
+        });
+      }
+
     actionTemplate(rowData, column) {
         return <div>
             <Button type="button" icon="pi-md-pencil" className="p-button-warning" />
@@ -88,10 +150,18 @@ export class StudentTable extends Component {
                     }
                 </div>
                 <Sidebar visible={this.state.visibleRight} position="right" baseZIndex={1000000} onHide={(e) => this.setState({visibleRight: false})} style={{width: '30%'}}>
-                    <h1 style={{fontWeight:'normal'}}>Add Student Information</h1>
-                    
-                    <Button type="button" onClick={(e) => this.setState({visibleRight: false})} label="Save" className="p-button-success"  style={{marginRight:'.25em'}} />
-                    <Button type="button" onClick={(e) => this.setState({visibleRight: false})} label="Cancel" className="p-button-secondary"/>
+                    <h1 style={{fontWeight:'normal'}}>Add Student</h1>
+                        <div>
+                            <h3>Student ID</h3><br/>
+                            <InputText value={this.state.student_id} onChange={this.onChangeStudentID} id="student_id" name="student_id" /> <br/>
+                            <h3>Student Name</h3><br/>
+                            <InputText value={this.state.name} onChange={this.onChangeStudentName} id="name" name="name" /> <br/>
+                            <h3>Class ID</h3><br/>
+                            <InputText value={this.state.class_id} onChange={this.onChangeClassID} id="class_id" name="class_id" /> <br/>
+                        </div>
+                    <br/>
+                    <Button type="button" onClick={this.saveStudent} label="Submit" className="p-button-success"  style={{marginRight:'.25em'}} />
+                    <Button type="button" onClick={(e) => this.setState({visibleRight: false})} label="Close" className="p-button-secondary"/>
                 </Sidebar>
             </div>
         );
