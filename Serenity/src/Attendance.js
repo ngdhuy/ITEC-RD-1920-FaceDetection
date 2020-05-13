@@ -43,45 +43,7 @@ class Attendance extends Component {
         this.onSidebarClick = this.onSidebarClick.bind(this);
         this.onRootMenuItemClick = this.onRootMenuItemClick.bind(this);
         this.onMenuItemClick = this.onMenuItemClick.bind(this);
-        this.changeMenuMode = this.changeMenuMode.bind(this);
-        this.changeMenuColor = this.changeMenuColor.bind(this);
-        this.changeLayout = this.changeLayout.bind(this);
-        this.changeTheme = this.changeTheme.bind(this);
-        this.onConfigButtonClick = this.onConfigButtonClick.bind(this);
-        this.onConfigCloseClick = this.onConfigCloseClick.bind(this);
-        this.onConfigClick = this.onConfigClick.bind(this);
         this.createMenu();
-    }
-
-    onWrapperClick(event) {
-        if (!this.menuClick && !this.menuButtonClick && this.state.mobileMenuActive) {
-            this.setState({mobileMenuActive: false});
-        }
-
-        if (!this.topbarMenuClick && !this.topbarMenuButtonClick) {
-            this.setState({
-                activeTopbarItem: null,
-                topbarMenuActive: false
-            });
-        }
-
-        if (!this.configClick) {
-            this.setState({configDialogActive: false});
-        }
-
-        if(!this.menuClick) {
-            if(this.isHorizontal() || this.isOverlay()) {
-                this.setState({
-                    menuActive: false
-                })
-            }
-        }
-
-        this.menuClick = false;
-        this.configClick = false;
-        this.menuButtonClick = false;
-        this.topbarMenuClick = false;
-        this.topbarMenuButtonClick = false;
     }
 
     onTopbarItemClick(event) {
@@ -153,41 +115,11 @@ class Attendance extends Component {
             {label: 'Home', icon: 'dashboard', to:'/'},
             {label: 'Account', icon: 'people', to:'/account'},
             {label: 'Course', icon: 'dashboard', to:'/course'},
+            {label: 'Class', icon: 'dashboard', to:'/class'},
             {label: 'Students', icon: 'people', to:'/student'},
             {label: 'Attendance', icon: 'people', to:'/attendance'},
             {label: 'Logout', icon: 'power', command:()=>{ removeUserSession(); this.props.history.push('/');}}
         ];
-    }
-
-    onConfigButtonClick(event){
-        this.configClick = true;
-        this.setState({configDialogActive: !this.state.configDialogActive})
-    }
-
-    onConfigCloseClick(){
-        this.setState({configDialogActive: false})
-    }
-
-    onConfigClick(){
-        this.configClick = true;
-    }
-
-    changeMenuMode(event) {
-        this.setState({layoutMode : event.menuMode});
-    }
-
-    changeMenuColor(event) {
-        this.setState({darkMenu : event.darkMenu})
-    }
-
-    changeTheme(event) {
-        this.setState({themeColor: event.theme})
-        this.changeStyleSheetUrl('theme-css', event.theme, 'theme');
-    }
-
-    changeLayout(event) {
-        this.setState({layoutColor: event.theme})
-        this.changeStyleSheetUrl('layout-css', event.theme, 'layout');
     }
 
     changeStyleSheetUrl(id, value, prefix) {

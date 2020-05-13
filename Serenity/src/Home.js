@@ -112,6 +112,7 @@ class Home extends Component {
             {label: 'Home', icon: 'dashboard', to:'/'},
             {label: 'Account', icon: 'people', to:'/account'},
             {label: 'Course', icon: 'dashboard', to:'/course'},
+            {label: 'Class', icon: 'dashboard', to:'/class'},
             {label: 'Students', icon: 'people', to:'/student'},
             {label: 'Attendance', icon: 'people'},
             {label: 'Logout', icon: 'power', command:()=>{ removeUserSession(); this.props.history.push('/');}}

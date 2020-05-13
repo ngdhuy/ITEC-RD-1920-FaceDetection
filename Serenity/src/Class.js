@@ -15,9 +15,9 @@ import './ripple.js';
 import './App.css';
 
 import {removeUserSession} from './utils/Common'
-import {StudentTable} from './components/StudentTable'
+import { ClassTable } from './components/ClassTable';
 
-class Student extends Component {
+class Class extends Component {
 
     constructor() {
         super();
@@ -36,52 +36,13 @@ class Student extends Component {
         this.onTopbarItemClick = this.onTopbarItemClick.bind(this);
         this.onMenuButtonClick = this.onMenuButtonClick.bind(this);
         this.onTopbarMobileMenuButtonClick = this.onTopbarMobileMenuButtonClick.bind(this);
-        this.onWrapperClick = this.onWrapperClick.bind(this);
         this.onSidebarMouseEnter = this.onSidebarMouseEnter.bind(this);
         this.onSidebarMouseLeave = this.onSidebarMouseLeave.bind(this);
         this.onToggleMenuClick = this.onToggleMenuClick.bind(this);
         this.onSidebarClick = this.onSidebarClick.bind(this);
         this.onRootMenuItemClick = this.onRootMenuItemClick.bind(this);
         this.onMenuItemClick = this.onMenuItemClick.bind(this);
-        this.changeMenuMode = this.changeMenuMode.bind(this);
-        this.changeMenuColor = this.changeMenuColor.bind(this);
-        this.changeLayout = this.changeLayout.bind(this);
-        this.changeTheme = this.changeTheme.bind(this);
-        this.onConfigButtonClick = this.onConfigButtonClick.bind(this);
-        this.onConfigCloseClick = this.onConfigCloseClick.bind(this);
-        this.onConfigClick = this.onConfigClick.bind(this);
         this.createMenu();
-    }
-
-    onWrapperClick(event) {
-        if (!this.menuClick && !this.menuButtonClick && this.state.mobileMenuActive) {
-            this.setState({mobileMenuActive: false});
-        }
-
-        if (!this.topbarMenuClick && !this.topbarMenuButtonClick) {
-            this.setState({
-                activeTopbarItem: null,
-                topbarMenuActive: false
-            });
-        }
-
-        if (!this.configClick) {
-            this.setState({configDialogActive: false});
-        }
-
-        if(!this.menuClick) {
-            if(this.isHorizontal() || this.isOverlay()) {
-                this.setState({
-                    menuActive: false
-                })
-            }
-        }
-
-        this.menuClick = false;
-        this.configClick = false;
-        this.menuButtonClick = false;
-        this.topbarMenuClick = false;
-        this.topbarMenuButtonClick = false;
     }
 
     onTopbarItemClick(event) {
@@ -147,48 +108,16 @@ class Student extends Component {
     }
     
 
-    createMenu() {  
-        
+    createMenu() {         
         this.menu = [
             {label: 'Home', icon: 'dashboard', to:'/'},
             {label: 'Account', icon: 'people', to:'/account'},
             {label: 'Course', icon: 'dashboard', to:'/course'},
             {label: 'Class', icon: 'dashboard', to:'/class'},
             {label: 'Students', icon: 'people', to:'/student'},
-            {label: 'Attendance', icon: 'people', to:'/attendance'},
+            {label: 'Attendance', icon: 'people'},
             {label: 'Logout', icon: 'power', command:()=>{ removeUserSession(); this.props.history.push('/');}}
         ];
-    }
-
-    onConfigButtonClick(event){
-        this.configClick = true;
-        this.setState({configDialogActive: !this.state.configDialogActive})
-    }
-
-    onConfigCloseClick(){
-        this.setState({configDialogActive: false})
-    }
-
-    onConfigClick(){
-        this.configClick = true;
-    }
-
-    changeMenuMode(event) {
-        this.setState({layoutMode : event.menuMode});
-    }
-
-    changeMenuColor(event) {
-        this.setState({darkMenu : event.darkMenu})
-    }
-
-    changeTheme(event) {
-        this.setState({themeColor: event.theme})
-        this.changeStyleSheetUrl('theme-css', event.theme, 'theme');
-    }
-
-    changeLayout(event) {
-        this.setState({layoutColor: event.theme})
-        this.changeStyleSheetUrl('layout-css', event.theme, 'layout');
     }
 
     changeStyleSheetUrl(id, value, prefix) {
@@ -196,7 +125,6 @@ class Student extends Component {
         let urlTokens = element.getAttribute('href').split('/');
         urlTokens[urlTokens.length - 1] = prefix + '-' + value + '.css';
         let newURL = urlTokens.join('/');
-
         this.replaceLink(element, newURL);
     }
 
@@ -270,8 +198,8 @@ class Student extends Component {
 
                     <AppBreadCrumbWithRouter />
                     <div className="layout-content">
-                        <StudentTable/>
-                    </div>                   
+                        <ClassTable/>
+                    </div>
 
                     <AppFooter />
 
@@ -282,4 +210,4 @@ class Student extends Component {
   }
 }
 
-export default Student;
+export default Class;
