@@ -64,7 +64,7 @@ export class StudentTable extends Component {
           .catch(e => {
             console.log(e);
           });
-      }
+    }
 
     onChangeStudentID(e) {
         this.setState({
@@ -79,7 +79,7 @@ export class StudentTable extends Component {
       }
     onChangeStudentMail(e) {
         this.setState({
-            mail: e.target.value
+            email: e.target.value
         });
     }
     onChangeStudentPhone(e) {
@@ -101,9 +101,9 @@ export class StudentTable extends Component {
         var data = {
             student_id: this.state.student_id,
             name: this.state.name,
-            mail: this.state.mail,
+            email: this.state.email,
             phone: this.state.phone,
-            gender: this.state.phone,
+            gender: this.state.gender,
             class_id: this.state.class_id          
         };
     
@@ -112,7 +112,7 @@ export class StudentTable extends Component {
                 this.setState({
                     student_id: response.data.student_id,
                     name: response.data.name,
-                    mail: response.data.mail,
+                    email: response.data.email,
                     phone: response.data.phone,
                     gender: response.data.gender,
                     class_id: response.data.class_id,
@@ -166,7 +166,7 @@ export class StudentTable extends Component {
                             <h3>Student Name</h3><br/>
                             <InputText value={this.state.name} onChange={this.onChangeStudentName} id="name" name="name" /> <br/>
                             <h3>Email Address</h3><br/>
-                            <InputText value={this.state.mail} onChange={this.onChangeStudentMail} id="mail" name="mail" /> <br/>
+                            <InputText value={this.state.email} onChange={this.onChangeStudentMail} id="email" name="email" /> <br/>
                             <h3>Phone Number</h3><br/>
                             <InputText value={this.state.phone} onChange={this.onChangeStudentPhone} id="phone" name="phone" /> <br/>
                             <h3>Gender</h3><br/>
