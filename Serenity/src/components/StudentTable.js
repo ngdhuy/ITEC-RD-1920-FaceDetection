@@ -43,7 +43,11 @@ export class StudentTable extends Component {
         this.StudentService = new StudentService();       
     }
 
-    componentDidMount(e) {
+    componentDidMount() {
+        this.loadStudentList();
+    }
+
+    loadStudentList = () => {
         this.StudentService.getStudent()
             .then(res => res.data)
             .then(data => { this.setState({ students: data }) })
@@ -55,6 +59,7 @@ export class StudentTable extends Component {
                 }
             })
     }
+
     deleteStudent() {    
         StudentDataService.delete(2)
           .then(response => {
@@ -108,18 +113,20 @@ export class StudentTable extends Component {
         };
     
         StudentDataService.create(data)
-            .then(response =>  {
-                this.setState({
-                    student_id: response.data.student_id,
-                    name: response.data.name,
-                    email: response.data.email,
-                    phone: response.data.phone,
-                    gender: response.data.gender,
-                    class_id: response.data.class_id,
-                    submitted: true,          
-                });
-                console.log(response.data);
-             })
+            .then(res => res.data)
+            .then(data => {
+                if(data){
+                    this.setState({
+                        student_id:"",
+                        name:"",
+                        email:"",
+                        phone:"",
+                        gender:"",
+                        class_id :"",
+                        visibleRight: false     
+                    }, () => {this.loadStudentList()})
+                }
+            })
             .catch(e => {
             if (e) { this.setState({ isAdmin: false }) }
              });

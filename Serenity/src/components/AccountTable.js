@@ -21,6 +21,7 @@ export class AccountTable extends Component {
 
     constructor(props) {
         super(props);
+        this.onChangeAccountID = this.onChangeAccountID.bind(this);
         this.onChangeUserName = this.onChangeUserName.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
         this.onChangeAccountType = this.onChangeAccountType.bind(this);
@@ -29,6 +30,7 @@ export class AccountTable extends Component {
         this.state = { 
             isAdmin: true,
             visibleRight: false,
+            account_id:"",
             username:"",
             password:"",
             account_type:"",
@@ -38,6 +40,10 @@ export class AccountTable extends Component {
     }
 
     componentDidMount() {
+        this.loadAccountList()
+    }
+
+    loadAccountList = () => {
         this.AccountService.getAccount()
         .then(res => res.data)
         .then(data => { this.setState({accounts: data})})
@@ -46,6 +52,9 @@ export class AccountTable extends Component {
                 isAdmin: false
             })
         })
+    }
+    onChangeAccountID(e) {
+        this.setState({ account_id: e.target.value });
     }
     onChangeUserName(e) {
         this.setState({ username: e.target.value });
@@ -61,6 +70,7 @@ export class AccountTable extends Component {
     }
     saveAccount() {
         var data = {
+            account_id: this.state.account_id,
             username: this.state.username,
             password: this.state.password,
             account_type: this.state.account_type,
@@ -68,20 +78,23 @@ export class AccountTable extends Component {
         };
     
         AccountDataService.create(data)
-            .then(response =>  {
-                this.setState({
-                    username: response.data.username,
-                    password: response.data.password,
-                    account_type: response.data.account_type,
-                    teacher_id: response.data.teacher_id,
-                    submitted: true,          
+            .then(res => res.data)
+            .then(data => {
+                if(data){
+                    this.setState({
+                        account_id:"",
+                        username:"",
+                        password:"",
+                        account_type:"",
+                        teacher_id:"",
+                        visibleRight: false  
+                    }, () => {this.loadAccountList()})
+                }
+            })
+                .catch(e => {
+                if (e) { this.setState({ isAdmin: false }) }
                 });
-                console.log(response.data);
-             })
-            .catch(e => {
-            if (e) { this.setState({ isAdmin: false }) }
-             });
-        }
+            }
 
     actionTemplate(rowData, column) {
         return <div>
@@ -114,6 +127,8 @@ export class AccountTable extends Component {
                 <Sidebar visible={this.state.visibleRight} position="right" baseZIndex={1000000} onHide={(e) => this.setState({visibleRight: false})} style={{width: '30%'}}>
                     <h1 style={{fontWeight:'normal'}}>Register new Account</h1>
                         <div>
+                            <h3>Account ID</h3><br/>
+                            <InputText value={this.state.account_id} onChange={this.onChangeAccountID} id="account_id" name="account_id" /> <br/>
                             <h3>User Name</h3><br/>
                             <InputText value={this.state.username} onChange={this.onChangeUserName} id="username" name="username" /> <br/>
                             <h3>Password</h3><br/>
