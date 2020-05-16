@@ -7,6 +7,8 @@ import Access from '../pages/Access'
 import ClassDataService from "../service/ClassService";
 import {Sidebar} from 'primereact/sidebar';
 import {InputText} from 'primereact/inputtext';
+import { DeleteNotification } from '../components/DeleteNotification';
+import { Growl } from 'primereact/growl';
 
 
 
@@ -32,22 +34,26 @@ export class ClassTable extends Component {
             class_id:"",
             class_name:"",
             total:"",
-            submitted: false
+            submitted: false,
+            add:true
          };       
         this.ClassService = new ClassService();       
     }
 
     componentDidMount(e) {
+       this.loadClassList()
+    }
+    loadClassList = () => {
         this.ClassService.getClass()
-            .then(res => res.data)
-            .then(data => { this.setState({ classes: data }) })
-            .catch(error => {
-                if (error) {
-                    this.setState({
-                        isAdmin: false
-                    })
-                }
-            })
+        .then(res => res.data)
+        .then(data => { this.setState({ classes: data }) })
+        .catch(error => {
+            if (error) {
+                this.setState({
+                    isAdmin: false
+                })
+            }
+        })
     }
     onChangeClassID(e) {
         this.setState({
@@ -70,29 +76,78 @@ export class ClassTable extends Component {
             class_id: this.state.class_id,
             class_name: this.state.class_name,
             total: this.state.total        
-        };
-    
+        };   
         ClassDataService.create(data)
-            .then(response =>  {
-                this.setState({
-                    class_id: response.data.class_id,
-                    class_name: response.data.class_name,
-                    total: response.data.total,
-                    submitted: true          
-                });
-                console.log(response.data);
-             })
+            .then(res => res.data)
+            .then(data => {
+                if(data) {
+                    this.setState({
+                        class_id:"",
+                        class_name:"",
+                        total:"",
+                        visibleRight: false,
+                    },() => {this.loadClassList()})
+                }
+            })
             .catch(e => {
             if (e) { this.setState({ isAdmin: false }) }
              });
         }
 
-    actionTemplate(rowData, column) {
-        return <div>
-            <Button type="button" icon="pi-md-pencil" className="p-button-warning" />
-            <Button type="button" icon="pi pi-times" className="p-button-danger" />
-        </div>;
-    }
+    openEditClass = (id) => {
+          
+            ClassDataService.getbyid(id).then(response => {
+                this.setState({
+                    class_id: response.data.class_id,
+                    class_name: response.data.class_name,
+                    total: response.data.total,
+                   
+                    visibleRight: true,
+                    add:false
+                })
+            })
+        }
+        updateClass(id){    
+            var data = {
+                class_id: this.state.class_id,
+                class_name: this.state.class_name,
+                total: this.state.total                  
+            }; 
+            ClassDataService.update(id,data)
+                .then(res => res.data)
+                .then(data => {
+                    if(data) {
+                        this.setState({
+                            class_id:"",
+                            class_name:"",
+                            total:"",
+                            visibleRight: false,
+                        }, () => {this.loadClassList()})
+                    }
+                })
+                .catch(e => {
+                if (e) {
+                    this.setState({
+                        isAdmin: false
+                    })
+                }
+              });
+          }
+          deleteClass=(id)=>{    
+            ClassDataService.delete(id)
+              .then(() => {this.loadClassList()})
+              .catch(e => {
+                console.log(e);
+              });
+          }
+        actionTemplate=(rowData, column) =>{
+            return ( 
+            <React.Fragment>
+                <Button type="button" icon="pi-md-pencil" className="p-button-warning"  onClick={(e) => this.openEditClass(rowData.class_id)} />
+                <Button icon="pi-md-close" className="p-button-danger" style={{ 'float': 'right' }} onClick={(e) => this.deleteNotify.delete(rowData.class_id)} />
+                </React.Fragment>
+            );
+        }
 
     render() {
 
@@ -100,6 +155,9 @@ export class ClassTable extends Component {
 
         return (
             <div className="p-grid">
+                <Growl ref={(el) => this.growl = el} />
+                 <DeleteNotification ref={el => this.deleteNotify = el} accessDelete={(e) => this.deleteClass(e)}
+                />
                 <div className="p-col-12">
                     {this.state.isAdmin ?
                         <div className="card card-w-title datatable-demo">
@@ -114,6 +172,8 @@ export class ClassTable extends Component {
                         </div> : <Access />
                     }
                 </div>
+                {this.state.add ?
+                <div>
                 <Sidebar visible={this.state.visibleRight} position="right" baseZIndex={1000000} onHide={(e) => this.setState({visibleRight: false})} style={{width: '30%'}}>
                     <h1 style={{fontWeight:'normal'}}>Add New Class</h1>
                         <div>
@@ -126,8 +186,26 @@ export class ClassTable extends Component {
                         </div>
                     <br/>
                     <Button type="button" onClick={this.saveClass} label="Submit" className="p-button-success"  style={{marginRight:'.25em'}} />
-                    <Button type="button" onClick={(e) => this.setState({visibleRight: false})} label="Close" className="p-button-secondary"/>
+                    <Button type="button" onClick={(e) => this.setState({visibleRight: false,add:false})} label="Close" className="p-button-secondary"/>
                 </Sidebar>
+                </div>:
+            <div>
+                 <Sidebar visible={this.state.visibleRight} position="right" baseZIndex={1000000} onHide={(e) => this.setState({visibleRight: false,add:true})} style={{width: '30%'}}>
+                    <h1 style={{fontWeight:'normal'}}>Eidt Class</h1>
+                        <div>
+                            <h3>Class ID</h3><br/>
+                            <InputText value={this.state.class_id} onChange={this.onChangeClassID} id="class_id" name="class_id" /> <br/>
+                            <h3>Class Name</h3><br/>
+                            <InputText value={this.state.class_name} onChange={this.onChangeClassName} id="class_name" name="class_name" /> <br/>
+                            <h3>Total Students</h3><br/>
+                            <InputText value={this.state.total} onChange={this.onChangeTotal} id="total" name="total" /> <br/>
+                        </div>
+                    <br/>
+                    <Button type="button" onClick={(e) => this.updateClass(this.state.class_id)} label="Submit" className="p-button-success"  style={{marginRight:'.25em'}} />
+                    <Button type="button" onClick={(e) => this.setState({visibleRight: false,add:true})} label="Close" className="p-button-secondary"/>
+                </Sidebar>
+            </div>
+            }
             </div>
         );
     }

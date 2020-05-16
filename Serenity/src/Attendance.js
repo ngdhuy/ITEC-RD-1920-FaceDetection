@@ -117,6 +117,7 @@ class Attendance extends Component {
             {label: 'Class', icon: 'dashboard', to:'/class'},
             {label: 'Students', icon: 'people', to:'/student'},
             {label: 'Attendance', icon: 'people', to:'/attendance'},
+            {label: 'Teacher', icon: 'people', to:'/teacher'},
             {label: 'Logout', icon: 'power', command:()=>{ removeUserSession(); this.props.history.push('/');}}
         ];
     }
@@ -183,7 +184,7 @@ class Attendance extends Component {
                     <div className="sidebar-logo">
                         <button className="p-link">
                             <img alt="logo" src="assets/layout/images/logo-slim.png" />
-                            <span className="app-name">SERENITY</span>
+                            <span className="app-name">STUDENTS</span>
                         </button>
                         <button className="p-link sidebar-anchor" title="Toggle Menu" onClick={this.onToggleMenuClick}> </button>
                     </div>

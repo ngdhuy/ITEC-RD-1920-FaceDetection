@@ -8,7 +8,8 @@ import AccountDataService from '../service/AccountService'
 import {Sidebar} from 'primereact/sidebar';
 import {InputText} from 'primereact/inputtext';
 
-
+import { DeleteNotification } from '../components/DeleteNotification';
+import { Growl } from 'primereact/growl';
 export class AccountService extends Component {
     getAccount() {
         const token = getToken();
@@ -34,7 +35,8 @@ export class AccountTable extends Component {
             username:"",
             password:"",
             account_type:"",
-            teacher_id:""
+            teacher_id:"",
+            add:true
         };
         this.AccountService = new AccountService();
     }
@@ -96,12 +98,68 @@ export class AccountTable extends Component {
                 });
             }
 
-    actionTemplate(rowData, column) {
-        return <div>
-            <Button type="button" icon="pi-md-pencil" className="p-button-warning"/>
-            <Button type="button" icon="pi pi-times" className="p-button-danger"/>
-        </div>;
-    }
+            openEditAccount = (id) => {
+          
+                AccountDataService.getbyid(id).then(response => {
+                    this.setState({
+                        account_id: response.data.account_id,
+                        username: response.data.username,
+                        password: response.data.password,
+                        account_type: response.data.account_type,
+                        teacher_id: response.data.teacher_id,
+                        
+                        visibleRight: true,
+                        add:false
+                    })
+                })
+            }
+            updateAccount(id){    
+                var data = {
+                    account_id: this.state.account_id,
+                    username: this.state.username,
+                    password: this.state.password,
+                    account_type: this.state.account_type,
+                    teacher_id: this.state.teacher_id
+                   
+                }; 
+                AccountDataService.update(id,data)
+                    .then(res => res.data)
+                    .then(data =>{
+                        if(data) {
+                            this.setState({
+                                account_id:"",
+                                username:"",
+                                password:"",
+                                account_type:"",
+                                teacher_id:"",
+                                visibleRight: false
+                            },() => {this.loadAccountList()})
+                        }
+                    })
+                    .catch(e => {
+                    if (e) {
+                        this.setState({
+                            isAdmin: false
+                        })
+                    }
+                  });
+              }
+              deleteAccount=(id)=>{    
+                AccountDataService.delete(id)
+                  .then(() => {this.loadAccountList()})
+                  .catch(e => {
+                    console.log(e);
+                  });
+              }
+            actionTemplate=(rowData, column) =>{
+                return ( 
+                <React.Fragment>
+                    <Button type="button" icon="pi-md-pencil" className="p-button-warning"  onClick={(e) => this.openEditAccount(rowData.account_id)} />
+                    <Button icon="pi-md-close" className="p-button-danger" style={{ 'float': 'right' }} onClick={(e) => this.deleteNotify.delete(rowData.account_id)} />
+                    </React.Fragment>
+                );
+            }
+        
 
     render() {
 
@@ -109,6 +167,9 @@ export class AccountTable extends Component {
 
         return (
             <div className="p-grid">
+                   <Growl ref={(el) => this.growl = el} />
+                 <DeleteNotification ref={el => this.deleteNotify = el} accessDelete={(e) => this.deleteAccount(e)}
+                />
                 <div className="p-col-12">
                     {   this.state.isAdmin ? 
                         <div className="card card-w-title datatable-demo">
@@ -124,6 +185,8 @@ export class AccountTable extends Component {
                         </div> : <Access/>
                     }                    
                 </div>
+                {this.state.add ?
+                <div>
                 <Sidebar visible={this.state.visibleRight} position="right" baseZIndex={1000000} onHide={(e) => this.setState({visibleRight: false})} style={{width: '30%'}}>
                     <h1 style={{fontWeight:'normal'}}>Register new Account</h1>
                         <div>
@@ -140,10 +203,31 @@ export class AccountTable extends Component {
                         </div>
                     <br/>
                     <Button type="button" onClick={this.saveAccount} label="Submit" className="p-button-success"  style={{marginRight:'.25em'}} />
-                    <Button type="button" onClick={(e) => this.setState({visibleRight: false})} label="Close" className="p-button-secondary"/>
+                    <Button type="button" onClick={(e) => this.setState({visibleRight: false,add:false})} label="Close" className="p-button-secondary"/>
+                </Sidebar>
+                </div>:
+            <div>
+                 <Sidebar visible={this.state.visibleRight} position="right" baseZIndex={1000000} onHide={(e) => this.setState({visibleRight: false,add:true})} style={{width: '30%'}}>
+                    <h1 style={{fontWeight:'normal'}}>Edit Account</h1>
+                        <div>
+                            <h3>Account ID</h3><br/>
+                            <InputText value={this.state.account_id} onChange={this.onChangeAccountID} id="account_id" name="account_id" /> <br/>
+                            <h3>User Name</h3><br/>
+                            <InputText value={this.state.username} onChange={this.onChangeUserName} id="username" name="username" /> <br/>
+                            <h3>Password</h3><br/>
+                            <InputText value={this.state.password} onChange={this.onChangePassword} id="password" name="password" /> <br/>
+                            <h3>Account Type</h3><br/>  
+                            <InputText value={this.state.account_type} onChange={this.onChangeAccountType} id="account_type" name="account_type" /> <br/>
+                            <h3>Teacher ID</h3><br/>
+                            <InputText value={this.state.teacher_id} onChange={this.onChangeTeacherID} id="teacher_id" name="teacher_id" /> <br/>
+                        </div>
+                    <br/>
+                    <Button type="button" onClick={(e)=>this.updateAccount(this.state.account_id)} label="Submit" className="p-button-success"  style={{marginRight:'.25em'}} />
+                    <Button type="button" onClick={(e) => this.setState({visibleRight: false,add:true})} label="Close" className="p-button-secondary"/>
                 </Sidebar>
             </div>
-            
+             }
+             </div>
         );
     }
 }

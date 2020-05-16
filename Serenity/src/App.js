@@ -8,6 +8,7 @@ import Student from './Student'
 import Class from './Class'
 import Login from './pages/Login'
 import Attendance from './Attendance'
+import Teacher from './Teacher'
 
 import PrivateRoute from './utils/PrivateRoute'
 import PublicRoute from './utils/PublicRoute'
@@ -26,6 +27,7 @@ function App() {
               <PrivateRoute path="/account" component={Account} />
               <PrivateRoute path="/student" component={Student} />
               <PrivateRoute path="/attendance" component={Attendance} />
+              <PrivateRoute path="/teacher" component={Teacher} />
             </Switch>
           </div>
         </div>
