@@ -118,7 +118,7 @@ export class AttendanceTable extends Component {
                 status: response.data.status,
                 date_check: response.data.date_check,
                 visibleRight: true,
-                add:false
+                add: false
             })
         })
     }
@@ -182,7 +182,7 @@ export class AttendanceTable extends Component {
                 <div className="p-col-12">
                 {   this.state.isAdmin ?
                     <div className="card card-w-title datatable-demo">
-                        <h1>Students List</h1>
+                        <h1>Attendance List</h1>
                         <DataTable value={this.state.attendances} header="Students List" paginator={true} rows={10}
                                    responsive={true} >
                             <Column field="attendance_id" header="Attendance ID" sortable={true} />
