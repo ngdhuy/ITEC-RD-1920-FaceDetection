@@ -15,6 +15,7 @@ import './ripple.js';
 import './App.css';
 
 import {removeUserSession} from './utils/Common'
+import { Calendar } from './components/Calendar';
 
 class Home extends Component {
 
@@ -198,7 +199,7 @@ class Home extends Component {
 
                     <AppBreadCrumbWithRouter />
                     <div className="layout-content">
-                        
+                        <Calendar/>
                     </div>
 
                     <AppFooter />
