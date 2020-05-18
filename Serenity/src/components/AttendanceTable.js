@@ -22,13 +22,11 @@ export class AttendanceTable extends Component {
 
     constructor() {
         super();
-        this.state = { isAdmin: true };
         this.onChangeAttendanceId = this.onChangeAttendanceId.bind(this);
         this.onChangeStudentOfCourse=this.onChangeStudentOfCourse.bind(this);
         this.onChangeStatus = this.onChangeStatus.bind(this);
         this.onChangeDateCheck = this.onChangeDateCheck.bind(this);
-        this.saveAttendance = this.saveAttendance.bind(this);
-       
+        this.saveAttendance = this.saveAttendance.bind(this);       
         this.AttendanceService = new AttendanceService();
         
         this.state = { 
@@ -50,7 +48,18 @@ export class AttendanceTable extends Component {
     loadAttendanceList = () => {
         this.AttendanceService.getAttendance()
         .then(res => res.data)
-        .then(data => { this.setState({attendances: data})})
+        .then(data => { 
+            for(var i = 0; i < data.length; i++){
+                if(data[i].status){
+                    data[i].status = "Present";
+                } else {
+                    data[i].status = "Absent";
+                }
+            }
+            this.setState({
+                attendances: data
+            })
+        })
         .catch(error => {
             if(error) {
                 this.setState({
@@ -172,7 +181,6 @@ export class AttendanceTable extends Component {
     render() {
 
         let actionHeader = <Button type="button" icon="pi-md-plus" onClick={() => this.setState({visibleRight: true})}></Button>;
-
 
         return (
             <div className="p-grid">
