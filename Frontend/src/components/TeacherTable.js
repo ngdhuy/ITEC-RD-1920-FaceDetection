@@ -52,7 +52,15 @@ export class TeacherTable extends Component {
     loadTeacherList = () => {
         this.TeacherService.getTeacher()
         .then(res => res.data)
-        .then(data => { this.setState({ teachers: data }) })
+        .then(data => {
+            for(var i = 0; i < data.length; i++) {
+                if(data[i].gender) {
+                    data[i].gender = "Male";
+                } else {
+                    data[i].gender = "Female";
+                }
+            } this.setState({teachers: data})
+        })
         .catch(error => {
             if (error) {
                 this.setState({
