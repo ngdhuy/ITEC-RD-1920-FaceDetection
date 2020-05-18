@@ -9,6 +9,7 @@ import { DeleteNotification } from '../components/DeleteNotification';
 import { Growl } from 'primereact/growl';
 import {Sidebar} from 'primereact/sidebar';
 import {InputText} from 'primereact/inputtext';
+import { ExportCSV } from '../service/ExportCSV';
 
 export class AttendanceService extends Component {
     getAttendance() {
@@ -187,6 +188,9 @@ export class AttendanceTable extends Component {
                    <Growl ref={(el) => this.growl = el} />
                  <DeleteNotification ref={el => this.deleteNotify = el} accessDelete={(e) => this.deleteAttendance(e)}
                 />
+                <div className="col-md-4">
+                <ExportCSV csvData={this.state.attendances} fileName={this.state.fileName} />
+                </div>
                 <div className="p-col-12">
                 {   this.state.isAdmin ?
                     <div className="card card-w-title datatable-demo">
@@ -241,7 +245,7 @@ export class AttendanceTable extends Component {
                 <Button type="button" onClick={(e) => this.updateAttendance(this.state.attendance_id)} label="Submit" className="p-button-success"  style={{marginRight:'.25em'}} />
                 <Button type="button" onClick={(e) => this.setState({visibleRight: false,add:true})} label="Close" className="p-button-secondary"/>
             </Sidebar>
-        </div>
+            </div>
             }
             </div>
                       
