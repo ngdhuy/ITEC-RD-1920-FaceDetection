@@ -1,0 +1,5 @@
+{
+    "env":{
+        "JW_KEY":"secret"
+    }
+}
