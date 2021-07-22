@@ -30,7 +30,7 @@
 		"react-scripts": "3.4.0",
 		"react-transition-group": "^2.5.1",
 		"regenerator-runtime": "0.13.3",
-		"xlsx": "^0.16.1"
+		"xlsx": "^0.17.0"
 	},
 	"scripts": {
 		"start": "react-scripts start",
